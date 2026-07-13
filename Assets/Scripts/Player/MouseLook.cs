@@ -3,17 +3,26 @@ using UnityEngine.InputSystem;
 
 namespace DungeonEscape
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class MouseLook : MonoBehaviour
     {
         [Header("Camera & Rotation Settings")]
         [SerializeField] private Transform playerCamera;
-        [SerializeField] private float mouseSensitivity = 0.1f;
+        [SerializeField] private float mouseSensitivity = 0.08f;
         [SerializeField] private float clampAngle = 85f;
 
         private PlayerInput playerInput;
         private InputAction lookAction;
+        private Rigidbody rb;
+
         private float xRotation = 0f;
+        private float yRotation = 0f;
         private bool isCursorLocked = true;
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
         private void Start()
         {
@@ -26,6 +35,13 @@ namespace DungeonEscape
             {
                 Debug.LogWarning("No se encontró PlayerInput en MouseLook.");
             }
+
+            // Inicializar la rotación vertical inicial
+            xRotation = playerCamera.localEulerAngles.x;
+            if (xRotation > 180f) xRotation -= 360f; // Ajustar a rango -180 a 180
+
+            // Inicializar yRotation con la rotación horizontal inicial del cuerpo del jugador
+            yRotation = transform.localEulerAngles.y;
 
             // Bloquear el cursor al iniciar
             SetCursorLock(true);
@@ -41,30 +57,37 @@ namespace DungeonEscape
 
         private void Update()
         {
-            // Solo rotar la cámara si el cursor está bloqueado y el juego está en marcha
+            // Procesar la entrada en Update para una vista instantánea y sin retardo
             if (isCursorLocked && lookAction != null)
             {
                 Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-                // En el Input System, el mouse delta ya es independiente del framerate por evento.
-                // No se debe multiplicar por Time.deltaTime para evitar aceleraciones locas o jittering.
                 float mouseX = lookInput.x * mouseSensitivity;
                 float mouseY = lookInput.y * mouseSensitivity;
 
                 xRotation -= mouseY;
                 xRotation = Mathf.Clamp(xRotation, -clampAngle, clampAngle);
+                
+                yRotation += mouseX;
 
-                // Rotar la cámara sobre el eje X (arriba/abajo)
+                // Rotar la cámara en Update (eje X vertical) para evitar retrasos visuales
                 playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            }
+        }
 
-                // Rotar el cuerpo del jugador sobre el eje Y (izquierda/derecha)
-                transform.Rotate(Vector3.up * mouseX);
+        private void FixedUpdate()
+        {
+            if (isCursorLocked && rb != null)
+            {
+                // Aplicar la rotación del cuerpo (eje Y horizontal) en FixedUpdate usando MoveRotation.
+                // Al hacerlo aquí, se sincroniza perfectamente con el motor de físicas de Unity 
+                // y se beneficia del "Rigidbody Interpolation", eliminando por completo los tirones.
+                rb.MoveRotation(Quaternion.Euler(0f, yRotation, 0f));
             }
         }
 
         private void HandleGameStateChanged(GameState state)
         {
-            // Bloquear cursor si está jugando, liberarlo si está en menú, pausa o fin de juego
             if (state == GameState.Playing)
             {
                 SetCursorLock(true);
