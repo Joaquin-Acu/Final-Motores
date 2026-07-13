@@ -5,6 +5,7 @@ namespace DungeonEscape
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement Settings")]
@@ -17,12 +18,12 @@ namespace DungeonEscape
         [SerializeField] private float groundDistance = 0.4f;
         [SerializeField] private LayerMask groundMask;
 
-        [Header("Input Actions")]
-        [SerializeField] private InputActionReference moveActionReference;
-        [SerializeField] private InputActionReference jumpActionReference;
-        [SerializeField] private InputActionReference sprintActionReference;
-
         private Rigidbody rb;
+        private PlayerInput playerInput;
+        private InputAction moveAction;
+        private InputAction jumpAction;
+        private InputAction sprintAction;
+
         private bool isGrounded;
         private Vector2 moveInput;
         private bool isSprinting;
@@ -30,44 +31,47 @@ namespace DungeonEscape
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            playerInput = GetComponent<PlayerInput>();
             
             // Asegurar que el Rigidbody no se caiga ni rote con la física
             rb.freezeRotation = true;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            if (moveActionReference != null) moveActionReference.action.Enable();
-            if (jumpActionReference != null) jumpActionReference.action.Enable();
-            if (sprintActionReference != null) sprintActionReference.action.Enable();
-        }
-
-        private void OnDisable()
-        {
-            if (moveActionReference != null) moveActionReference.action.Disable();
-            if (jumpActionReference != null) jumpActionReference.action.Disable();
-            if (sprintActionReference != null) sprintActionReference.action.Disable();
+            // Inicializar las acciones desde el PlayerInput
+            if (playerInput != null && playerInput.actions != null)
+            {
+                moveAction = playerInput.actions.FindAction("Move");
+                jumpAction = playerInput.actions.FindAction("Jump");
+                sprintAction = playerInput.actions.FindAction("Sprint");
+            }
+            else
+            {
+                Debug.LogError("PlayerInput o sus acciones no están configuradas en el PlayerController.");
+            }
         }
 
         private void Update()
         {
-            // Leer inputs del Input System
-            if (moveActionReference != null)
+            // Leer inputs de las acciones configuradas
+            if (moveAction != null)
             {
-                moveInput = moveActionReference.action.ReadValue<Vector2>();
+                moveInput = moveAction.ReadValue<Vector2>();
             }
 
-            if (sprintActionReference != null)
+            if (sprintAction != null)
             {
-                isSprinting = sprintActionReference.action.IsPressed();
+                isSprinting = sprintAction.IsPressed();
             }
 
             // Ground Check
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             // Saltar
-            if (jumpActionReference != null && jumpActionReference.action.WasPressedThisFrame() && isGrounded)
+            if (jumpAction != null && jumpAction.WasPressedThisFrame() && isGrounded)
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
@@ -88,8 +92,8 @@ namespace DungeonEscape
             float currentSpeed = moveSpeed * (isSprinting ? sprintMultiplier : 1f);
             Vector3 targetVelocity = moveDirection * currentSpeed;
 
-            // Mantener la velocidad vertical actual del Rigidbody (gravedad)
-            targetVelocity.y = rb.linearVelocity.y; // En Unity 6 se usa rb.linearVelocity en lugar de rb.velocity (aunque rb.velocity sigue existiendo, linearVelocity es el estándar nuevo)
+            // Mantener la velocidad vertical del Rigidbody (gravedad)
+            targetVelocity.y = rb.linearVelocity.y;
 
             // Aplicar velocidad al Rigidbody
             rb.linearVelocity = targetVelocity;

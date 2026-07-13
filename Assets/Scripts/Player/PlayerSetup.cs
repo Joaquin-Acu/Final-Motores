@@ -17,21 +17,37 @@ namespace DungeonEscape
         {
             Undo.RegisterCompleteObjectUndo(gameObject, "Setup First Person Player");
 
-            // 1. Configurar Rigidbody
+            // 1. Configurar PlayerInput
+            PlayerInput playerInput = GetComponent<PlayerInput>();
+            if (playerInput == null) playerInput = gameObject.AddComponent<PlayerInput>();
+
+            // Cargar Input Actions Asset
+            InputActionAsset inputAsset = AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/InputSystem_Actions.inputactions");
+            if (inputAsset != null)
+            {
+                playerInput.actions = inputAsset;
+                playerInput.defaultActionMap = "Player";
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró el archivo 'Assets/InputSystem_Actions.inputactions'. Por favor, asígnalo manualmente en el componente PlayerInput.");
+            }
+
+            // 2. Configurar Rigidbody
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
             rb.freezeRotation = true;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             rb.interpolation = RigidbodyInterpolation.Interpolate;
 
-            // 2. Configurar CapsuleCollider
+            // 3. Configurar CapsuleCollider
             CapsuleCollider col = GetComponent<CapsuleCollider>();
             if (col == null) col = gameObject.AddComponent<CapsuleCollider>();
             col.center = new Vector3(0f, 1f, 0f);
             col.height = 2f;
             col.radius = 0.5f;
 
-            // 3. Crear GroundCheck
+            // 4. Crear GroundCheck
             Transform groundCheck = transform.Find("GroundCheck");
             if (groundCheck == null)
             {
@@ -41,7 +57,7 @@ namespace DungeonEscape
                 groundCheck = gcGo.transform;
             }
 
-            // 4. Crear Head (Camera Parent)
+            // 5. Crear Head (Camera Parent)
             Transform head = transform.Find("Head");
             if (head == null)
             {
@@ -51,11 +67,10 @@ namespace DungeonEscape
                 head = headGo.transform;
             }
 
-            // 5. Configurar Cámara
+            // 6. Configurar Cámara
             Camera mainCam = Camera.main;
             if (mainCam == null)
             {
-                // Buscar cualquier cámara en la escena
                 mainCam = FindFirstObjectByType<Camera>();
             }
 
@@ -79,13 +94,6 @@ namespace DungeonEscape
                 mainCam.tag = "MainCamera";
             }
 
-            // 6. Cargar Input Actions Asset
-            InputActionAsset inputAsset = AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/InputSystem_Actions.inputactions");
-            if (inputAsset == null)
-            {
-                Debug.LogWarning("No se encontró el archivo 'Assets/InputSystem_Actions.inputactions'. Por favor, configúralo manualmente.");
-            }
-
             // 7. Configurar PlayerController
             PlayerController controller = GetComponent<PlayerController>();
             if (controller == null) controller = gameObject.AddComponent<PlayerController>();
@@ -93,20 +101,6 @@ namespace DungeonEscape
             // Asignar GroundCheck
             var controllerSerialized = new SerializedObject(controller);
             controllerSerialized.FindProperty("groundCheck").objectReferenceValue = groundCheck;
-
-            if (inputAsset != null)
-            {
-                var moveActionProp = inputAsset.FindAction("Player/Move");
-                var jumpActionProp = inputAsset.FindAction("Player/Jump");
-                var sprintActionProp = inputAsset.FindAction("Player/Sprint");
-
-                if (moveActionProp != null)
-                    controllerSerialized.FindProperty("moveActionReference").objectReferenceValue = GetActionReference(inputAsset, "Player/Move");
-                if (jumpActionProp != null)
-                    controllerSerialized.FindProperty("jumpActionReference").objectReferenceValue = GetActionReference(inputAsset, "Player/Jump");
-                if (sprintActionProp != null)
-                    controllerSerialized.FindProperty("sprintActionReference").objectReferenceValue = GetActionReference(inputAsset, "Player/Sprint");
-            }
             controllerSerialized.ApplyModifiedProperties();
 
             // 8. Configurar MouseLook
@@ -115,10 +109,6 @@ namespace DungeonEscape
 
             var lookSerialized = new SerializedObject(look);
             lookSerialized.FindProperty("playerCamera").objectReferenceValue = mainCam.transform;
-            if (inputAsset != null)
-            {
-                lookSerialized.FindProperty("lookActionReference").objectReferenceValue = GetActionReference(inputAsset, "Player/Look");
-            }
             lookSerialized.ApplyModifiedProperties();
 
             // 9. Configurar PlayerInteraction
@@ -127,11 +117,7 @@ namespace DungeonEscape
 
             var interactionSerialized = new SerializedObject(interaction);
             interactionSerialized.FindProperty("cameraTransform").objectReferenceValue = mainCam.transform;
-            interactionSerialized.FindProperty("interactableMask").intValue = LayerMask.GetMask("Interactable", "Default"); // Capas por defecto
-            if (inputAsset != null)
-            {
-                interactionSerialized.FindProperty("interactActionReference").objectReferenceValue = GetActionReference(inputAsset, "Player/Interact");
-            }
+            interactionSerialized.FindProperty("interactableMask").intValue = LayerMask.GetMask("Interactable", "Default"); // Capas de interacción
             interactionSerialized.ApplyModifiedProperties();
 
             // 10. Configurar PlayerHealth
@@ -139,22 +125,6 @@ namespace DungeonEscape
             if (health == null) health = gameObject.AddComponent<PlayerHealth>();
 
             Debug.Log("¡Configuración del jugador en primera persona completada con éxito!");
-        }
-
-        private InputActionReference GetActionReference(InputActionAsset asset, string actionPath)
-        {
-            // Buscar todas las referencias de acción generadas en el proyecto o crearlas en tiempo de edición
-            string[] guids = AssetDatabase.FindAssets("t:InputActionReference");
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                InputActionReference reference = AssetDatabase.LoadAssetAtPath<InputActionReference>(path);
-                if (reference != null && reference.action != null && reference.action.actionMap.name + "/" + reference.action.name == actionPath)
-                {
-                    return reference;
-                }
-            }
-            return null;
         }
         #endif
     }

@@ -5,32 +5,23 @@ namespace DungeonEscape
 {
     public class PauseController : MonoBehaviour
     {
-        [Header("Input Action Reference")]
-        [SerializeField] private InputActionReference pauseActionReference;
-
-        private void OnEnable()
+        private void Update()
         {
-            if (pauseActionReference != null)
+            // Detectar la tecla Escape (Teclado) o el botón Start (Gamepad) directamente a través de la API del Input System
+            bool escPressed = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+            bool startPressed = Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame;
+
+            if (escPressed || startPressed)
             {
-                pauseActionReference.action.Enable();
-                pauseActionReference.action.performed += OnPausePerformed;
+                TriggerPause();
             }
         }
 
-        private void OnDisable()
-        {
-            if (pauseActionReference != null)
-            {
-                pauseActionReference.action.performed -= OnPausePerformed;
-                pauseActionReference.action.Disable();
-            }
-        }
-
-        private void OnPausePerformed(InputAction.CallbackContext context)
+        private void TriggerPause()
         {
             if (GameManager.Instance != null)
             {
-                // Solo pausar si estamos jugando o si ya está pausado
+                // Solo alternar pausa si estamos jugando o si ya está pausado
                 if (GameManager.Instance.CurrentState == GameState.Playing || 
                     GameManager.Instance.CurrentState == GameState.Paused)
                 {

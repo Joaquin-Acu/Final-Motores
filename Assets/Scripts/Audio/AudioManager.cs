@@ -37,7 +37,7 @@ namespace DungeonEscape
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Asegurarse de que existan AudioSources si no se asignaron
+            //Asegurarse de que existan AudioSources si no se asignaron
             InitializeAudioSources();
         }
 
@@ -87,7 +87,7 @@ namespace DungeonEscape
                     PlayBGM(dungeonMusic);
                     break;
                 case GameState.Paused:
-                    // Podríamos bajar el volumen o pausar la música
+                    //Podríamos bajar el volumen o pausar la música
                     break;
                 case GameState.GameOver:
                     PlayBGM(gameOverMusic);

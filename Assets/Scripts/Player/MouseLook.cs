@@ -10,24 +10,23 @@ namespace DungeonEscape
         [SerializeField] private float mouseSensitivity = 20f;
         [SerializeField] private float clampAngle = 85f;
 
-        [Header("Input Actions")]
-        [SerializeField] private InputActionReference lookActionReference;
-
+        private PlayerInput playerInput;
+        private InputAction lookAction;
         private float xRotation = 0f;
         private bool isCursorLocked = true;
 
-        private void OnEnable()
-        {
-            if (lookActionReference != null) lookActionReference.action.Enable();
-        }
-
-        private void OnDisable()
-        {
-            if (lookActionReference != null) lookActionReference.action.Disable();
-        }
-
         private void Start()
         {
+            playerInput = GetComponent<PlayerInput>();
+            if (playerInput != null && playerInput.actions != null)
+            {
+                lookAction = playerInput.actions.FindAction("Look");
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró PlayerInput en MouseLook.");
+            }
+
             // Bloquear el cursor al iniciar
             SetCursorLock(true);
             
@@ -43,12 +42,11 @@ namespace DungeonEscape
         private void Update()
         {
             // Solo rotar la cámara si el cursor está bloqueado y el juego está en marcha
-            if (isCursorLocked && lookActionReference != null)
+            if (isCursorLocked && lookAction != null)
             {
-                Vector2 lookInput = lookActionReference.action.ReadValue<Vector2>();
+                Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-                // En la versión 6000.x del Input System, el mouse delta puede ser grande o pequeño dependiendo de la escala.
-                // Multiplicamos por Time.deltaTime y un factor de sensibilidad.
+                // En la versión 6000.x del Input System, el mouse delta se procesa
                 float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
                 float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
 

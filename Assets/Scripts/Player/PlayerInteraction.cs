@@ -10,19 +10,21 @@ namespace DungeonEscape
         [SerializeField] private float interactionDistance = 3f;
         [SerializeField] private LayerMask interactableMask;
 
-        [Header("Input Actions")]
-        [SerializeField] private InputActionReference interactActionReference;
-
+        private PlayerInput playerInput;
+        private InputAction interactAction;
         private IInteractable currentInteractable;
 
-        private void OnEnable()
+        private void Start()
         {
-            if (interactActionReference != null) interactActionReference.action.Enable();
-        }
-
-        private void OnDisable()
-        {
-            if (interactActionReference != null) interactActionReference.action.Disable();
+            playerInput = GetComponent<PlayerInput>();
+            if (playerInput != null && playerInput.actions != null)
+            {
+                interactAction = playerInput.actions.FindAction("Interact");
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró PlayerInput en PlayerInteraction.");
+            }
         }
 
         private void Update()
@@ -30,7 +32,7 @@ namespace DungeonEscape
             CheckForInteractable();
             
             // Detectar si se presiona la tecla de interactuar
-            if (interactActionReference != null && interactActionReference.action.WasPressedThisFrame())
+            if (interactAction != null && interactAction.WasPressedThisFrame())
             {
                 TriggerInteraction();
             }
@@ -38,6 +40,8 @@ namespace DungeonEscape
 
         private void CheckForInteractable()
         {
+            if (cameraTransform == null) return;
+
             Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
             RaycastHit hit;
 
