@@ -1,0 +1,244 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace DungeonEscape
+{
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class EnemyAI : MonoBehaviour
+    {
+        public enum EnemyState { Patrolling, Chasing, Attacking }
+
+        [Header("AI Settings")]
+        [SerializeField] private EnemyState currentState = EnemyState.Patrolling;
+        [SerializeField] private float walkSpeed = 2f;
+        [SerializeField] private float chaseSpeed = 4f;
+
+        [Header("Detection Settings")]
+        [SerializeField] private float detectionRadius = 8f;
+        [SerializeField] private float fovAngle = 90f;
+        [SerializeField] private LayerMask playerMask;
+        [SerializeField] private LayerMask obstacleMask;
+
+        [Header("Patrol Settings")]
+        [SerializeField] private Transform[] patrolWaypoints;
+        [SerializeField] private float waypointTolerance = 0.5f;
+        [SerializeField] private float randomPatrolRadius = 10f; // Usado si no hay waypoints
+
+        [Header("Attack Settings")]
+        [SerializeField] private int attackDamage = 20;
+        [SerializeField] private float attackRange = 1.5f;
+        [SerializeField] private float attackCooldown = 1.5f;
+
+        [Header("Animations")]
+        [SerializeField] private Animator animator;
+
+        private NavMeshAgent agent;
+        private Transform playerTransform;
+        private PlayerHealth playerHealth;
+        private Vector3 targetPatrolPoint;
+        private int currentWaypointIndex = 0;
+        private float lastAttackTime = 0f;
+        private bool isPlayerVisible = false;
+
+        private void Awake()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            agent.speed = walkSpeed;
+        }
+
+        private void Start()
+        {
+            // Intentar encontrar al jugador automáticamente
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerTransform = player.transform;
+                playerHealth = player.GetComponent<PlayerHealth>();
+            }
+
+            SetNextPatrolPoint();
+        }
+
+        private void Update()
+        {
+            if (playerTransform == null) return;
+
+            CheckPlayerVisibility();
+
+            // Máquina de estados
+            switch (currentState)
+            {
+                case EnemyState.Patrolling:
+                    PatrolBehavior();
+                    break;
+                case EnemyState.Chasing:
+                    ChaseBehavior();
+                    break;
+                case EnemyState.Attacking:
+                    AttackBehavior();
+                    break;
+            }
+
+            UpdateAnimator();
+        }
+
+        private void CheckPlayerVisibility()
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            if (distanceToPlayer <= detectionRadius)
+            {
+                Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+                float angle = Vector3.Angle(transform.forward, directionToPlayer);
+
+                // Si está dentro del cono visual (FOV)
+                if (angle < fovAngle / 2f)
+                {
+                    // Lanzar Raycast para verificar que no haya paredes en medio
+                    if (!Physics.Raycast(transform.position + Vector3.up * 1f, directionToPlayer, distanceToPlayer, obstacleMask))
+                    {
+                        isPlayerVisible = true;
+                        return;
+                    }
+                }
+            }
+
+            isPlayerVisible = false;
+        }
+
+        private void PatrolBehavior()
+        {
+            agent.speed = walkSpeed;
+
+            // Si detecta al jugador, cambiar a perseguir
+            if (isPlayerVisible)
+            {
+                currentState = EnemyState.Chasing;
+                return;
+            }
+
+            // Moverse al punto de patrulla
+            if (!agent.pathPending && agent.remainingDistance < waypointTolerance)
+            {
+                SetNextPatrolPoint();
+            }
+        }
+
+        private void SetNextPatrolPoint()
+        {
+            if (patrolWaypoints != null && patrolWaypoints.Length > 0)
+            {
+                agent.destination = patrolWaypoints[currentWaypointIndex].position;
+                currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
+            }
+            else
+            {
+                // Patrulla aleatoria en NavMesh si no hay waypoints manuales
+                Vector3 randomDirection = Random.insideUnitSphere * randomPatrolRadius;
+                randomDirection += transform.position;
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(randomDirection, out hit, randomPatrolRadius, 1))
+                {
+                    agent.destination = hit.position;
+                }
+            }
+        }
+
+        private void ChaseBehavior()
+        {
+            agent.speed = chaseSpeed;
+            agent.destination = playerTransform.position;
+
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            // Si se acerca a rango de ataque
+            if (distanceToPlayer <= attackRange)
+            {
+                currentState = EnemyState.Attacking;
+                return;
+            }
+
+            // Si pierde de vista al jugador a cierta distancia, vuelve a patrullar
+            if (!isPlayerVisible && distanceToPlayer > detectionRadius)
+            {
+                currentState = EnemyState.Patrolling;
+                SetNextPatrolPoint();
+            }
+        }
+
+        private void AttackBehavior()
+        {
+            agent.speed = 0f; // Detenerse mientras ataca
+            agent.destination = transform.position;
+
+            // Rotar hacia el jugador suavemente
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            direction.y = 0; // Evitar inclinación
+            if (direction != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
+            }
+
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            // Si el jugador se aleja
+            if (distanceToPlayer > attackRange)
+            {
+                currentState = EnemyState.Chasing;
+                return;
+            }
+
+            // Atacar
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                ExecuteAttack();
+            }
+        }
+
+        private void ExecuteAttack()
+        {
+            lastAttackTime = Time.time;
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");
+            }
+
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(attackDamage);
+                Debug.Log($"¡Enemigo atacó e infligió {attackDamage} de daño!");
+            }
+        }
+
+        private void UpdateAnimator()
+        {
+            if (animator != null)
+            {
+                // Enviar la velocidad actual para animaciones de caminar/correr
+                animator.SetFloat("Speed", agent.velocity.magnitude);
+                animator.SetBool("IsChasing", currentState == EnemyState.Chasing);
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            // Dibujar radio de detección en azul
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+            // Dibujar rango de ataque en rojo
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+
+            // Dibujar cono de visión
+            Gizmos.color = Color.yellow;
+            Vector3 fovLeft = Quaternion.AngleAxis(-fovAngle / 2f, Vector3.up) * transform.forward;
+            Vector3 fovRight = Quaternion.AngleAxis(fovAngle / 2f, Vector3.up) * transform.forward;
+            Gizmos.DrawRay(transform.position, fovLeft * detectionRadius);
+            Gizmos.DrawRay(transform.position, fovRight * detectionRadius);
+        }
+    }
+}
