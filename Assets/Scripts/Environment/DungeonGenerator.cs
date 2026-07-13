@@ -103,7 +103,17 @@ namespace DungeonEscape
                         case "P": // Jugador
                             if (playerInstance != null)
                             {
-                                playerInstance.transform.position = position + Vector3.up * 0.5f;
+                                Vector3 spawnTarget = position + Vector3.up * 0.5f;
+                                playerInstance.transform.position = spawnTarget;
+                                
+                                Rigidbody playerRb = playerInstance.GetComponent<Rigidbody>();
+                                if (playerRb != null)
+                                {
+                                    playerRb.position = spawnTarget;
+                                    playerRb.linearVelocity = Vector3.zero;
+                                    playerRb.angularVelocity = Vector3.zero;
+                                }
+                                Physics.SyncTransforms(); // Forzar sincronización del motor físico inmediatamente
                             }
                             else
                             {
