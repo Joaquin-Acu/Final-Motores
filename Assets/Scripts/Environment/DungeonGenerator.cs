@@ -207,7 +207,7 @@ namespace DungeonEscape
             light.color = torchColor;
             light.range = cellSize * 2f;
             light.intensity = 1.5f;
-            light.shadows = LightShadows.Soft;
+            light.shadows = LightShadows.None; // Optimización clave: desactivar sombras dinámicas en antorchas para evitar cientos de pases de sombras.
 
             // Añadir un script de parpadeo simple para simular fuego
             torch.AddComponent<TorchFlicker>();
@@ -290,6 +290,7 @@ namespace DungeonEscape
             if (torchLight != null)
             {
                 baseIntensity = torchLight.intensity;
+                StartCoroutine(FlickerCoroutine());
             }
             else
             {
@@ -297,11 +298,19 @@ namespace DungeonEscape
             }
         }
 
-        private void Update()
+        private System.Collections.IEnumerator FlickerCoroutine()
         {
-            // Variar la intensidad usando ruido de Perlin para un parpadeo natural
-            float noise = Mathf.PerlinNoise(Time.time * flickerSpeed, 0f);
-            torchLight.intensity = baseIntensity + (noise - 0.5f) * 2f * flickerAmount;
+            // Desincronizar el parpadeo inicial para que no oscilen al mismo tiempo
+            yield return new WaitForSeconds(Random.Range(0f, 1f));
+
+            WaitForSeconds delay = new WaitForSeconds(0.05f); // 20 actualizaciones por segundo bastan y ahorran CPU
+            while (true)
+            {
+                // Variar la intensidad usando ruido de Perlin para un parpadeo natural
+                float noise = Mathf.PerlinNoise(Time.time * flickerSpeed, 0f);
+                torchLight.intensity = baseIntensity + (noise - 0.5f) * 2f * flickerAmount;
+                yield return delay;
+            }
         }
     }
 }
