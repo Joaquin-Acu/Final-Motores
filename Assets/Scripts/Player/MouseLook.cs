@@ -7,7 +7,7 @@ namespace DungeonEscape
     {
         [Header("Camera & Rotation Settings")]
         [SerializeField] private Transform playerCamera;
-        [SerializeField] private float mouseSensitivity = 20f;
+        [SerializeField] private float mouseSensitivity = 0.1f;
         [SerializeField] private float clampAngle = 85f;
 
         private PlayerInput playerInput;
@@ -46,9 +46,10 @@ namespace DungeonEscape
             {
                 Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-                // En la versión 6000.x del Input System, el mouse delta se procesa
-                float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
-                float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+                // En el Input System, el mouse delta ya es independiente del framerate por evento.
+                // No se debe multiplicar por Time.deltaTime para evitar aceleraciones locas o jittering.
+                float mouseX = lookInput.x * mouseSensitivity;
+                float mouseY = lookInput.y * mouseSensitivity;
 
                 xRotation -= mouseY;
                 xRotation = Mathf.Clamp(xRotation, -clampAngle, clampAngle);
