@@ -48,10 +48,10 @@ namespace DungeonEscape
             col.radius = 0.5f;
 
             // Crear y asignar material físico sin fricción para evitar tirones/fricción con paredes
-            PhysicMaterial frictionlessMat = new PhysicMaterial("PlayerFrictionless");
+            PhysicsMaterial frictionlessMat = new PhysicsMaterial("PlayerFrictionless");
             frictionlessMat.dynamicFriction = 0f;
             frictionlessMat.staticFriction = 0f;
-            frictionlessMat.frictionCombine = PhysicMaterialCombine.Minimum;
+            frictionlessMat.frictionCombine = PhysicsMaterialCombine.Minimum;
             col.material = frictionlessMat;
 
             // 4. Crear GroundCheck
