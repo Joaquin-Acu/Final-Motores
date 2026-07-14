@@ -76,6 +76,9 @@ namespace DungeonEscape
         [ContextMenu("Generate Dungeon")]
         public void GenerateDungeon()
         {
+            // Asegurar que los materiales estén creados si se genera desde el Editor
+            CreateFallbackMaterials();
+
             // Limpiar si ya hay objetos generados (por si se ejecuta en Editor)
             ClearDungeon();
 
