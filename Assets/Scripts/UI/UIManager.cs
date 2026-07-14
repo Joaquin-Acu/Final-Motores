@@ -35,7 +35,7 @@ namespace DungeonEscape
             DungeonEvents.OnPlayerMaxHealthInit += HandleMaxHealthInit;
             DungeonEvents.OnPlayerDamage += UpdateHealthUI;
             DungeonEvents.OnPlayerHeal += UpdateHealthUI;
-            DungeonEvents.OnKeyCollected += UpdateKeyCountUI;
+            DungeonEvents.OnKeyCountChanged += UpdateKeyCountUI;
             DungeonEvents.OnInteractLook += UpdateInteractPrompt;
         }
 
@@ -46,7 +46,7 @@ namespace DungeonEscape
             DungeonEvents.OnPlayerMaxHealthInit -= HandleMaxHealthInit;
             DungeonEvents.OnPlayerDamage -= UpdateHealthUI;
             DungeonEvents.OnPlayerHeal -= UpdateHealthUI;
-            DungeonEvents.OnKeyCollected -= UpdateKeyCountUI;
+            DungeonEvents.OnKeyCountChanged -= UpdateKeyCountUI;
             DungeonEvents.OnInteractLook -= UpdateInteractPrompt;
         }
 
@@ -58,6 +58,13 @@ namespace DungeonEscape
             if (interactPromptText != null)
             {
                 interactPromptText.gameObject.SetActive(false);
+            }
+
+            // Inicializar el contador de llaves en el HUD de forma segura
+            if (keyCountText != null)
+            {
+                int keys = (GameManager.Instance != null) ? GameManager.Instance.CollectedKeys : 0;
+                keyCountText.text = $"Llaves: {keys}";
             }
         }
 
@@ -136,13 +143,11 @@ namespace DungeonEscape
             }
         }
 
-        private void UpdateKeyCountUI(int currentKeys)
+        private void UpdateKeyCountUI(int totalKeys)
         {
             if (keyCountText != null)
             {
-                // Si la llamada fue una actualización indirecta (llave usada), preguntamos al GameManager
-                int keys = (currentKeys == 0 && GameManager.Instance != null) ? GameManager.Instance.CollectedKeys : currentKeys;
-                keyCountText.text = $"Llaves: {keys}";
+                keyCountText.text = $"Llaves: {totalKeys}";
             }
         }
 

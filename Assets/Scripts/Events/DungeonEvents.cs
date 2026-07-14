@@ -22,7 +22,8 @@ namespace DungeonEscape
         public static Action<int> OnPlayerMaxHealthInit;// Envía la salud máxima inicial
         
         // Eventos de coleccionables y progreso
-        public static Action<int> OnKeyCollected;       // Envía la cantidad actual de llaves
+        public static Action<int> OnKeyCollected;       // Envía la cantidad recolectada en un objeto
+        public static Action<int> OnKeyCountChanged;    // Envía la cantidad total acumulada de llaves del jugador
         public static Action OnDoorUnlocked;
         public static Action<int, int> OnKeysRequiredUpdate; // Envía (llaves poseídas, llaves requeridas)
 

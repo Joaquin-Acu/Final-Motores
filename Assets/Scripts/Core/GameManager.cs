@@ -88,6 +88,7 @@ namespace DungeonEscape
         {
             collectedKeys += amount;
             Debug.Log($"Llave recolectada. Llaves totales: {collectedKeys}");
+            DungeonEvents.OnKeyCountChanged?.Invoke(collectedKeys);
         }
 
         public bool TryUseKeys(int amount)
@@ -95,8 +96,7 @@ namespace DungeonEscape
             if (collectedKeys >= amount)
             {
                 collectedKeys -= amount;
-                // Disparar evento para que la UI se actualice con el nuevo conteo de llaves
-                DungeonEvents.OnKeyCollected?.Invoke(0); // El valor 0 fuerza a actualizar con el conteo actual sin sumar nada
+                DungeonEvents.OnKeyCountChanged?.Invoke(collectedKeys);
                 return true;
             }
             return false;

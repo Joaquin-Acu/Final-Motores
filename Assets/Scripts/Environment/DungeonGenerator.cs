@@ -307,7 +307,7 @@ namespace DungeonEscape
 
         public void ClearDungeon()
         {
-            // Borrar objetos registrados en la lista
+            // 1. Borrar objetos registrados en la lista en tiempo de ejecución
             foreach (var obj in generatedObjects)
             {
                 if (obj != null)
@@ -320,19 +320,20 @@ namespace DungeonEscape
             }
             generatedObjects.Clear();
 
-            // Si estamos en el editor y la lista está vacía (por ej. tras reiniciar Unity),
-            // limpiamos todos los hijos del transform para asegurar limpieza completa.
-            if (!Application.isPlaying)
+            // 2. Limpiar todos los hijos reales del transform. 
+            // Esto asegura que si la mazmorra ya estaba generada en el Editor, se borren 
+            // los objetos viejos antes de volver a instanciar la mazmorra al dar Play.
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in transform)
             {
-                List<GameObject> children = new List<GameObject>();
-                foreach (Transform child in transform)
-                {
-                    children.Add(child.gameObject);
-                }
-                foreach (GameObject child in children)
-                {
+                children.Add(child.gameObject);
+            }
+            foreach (GameObject child in children)
+            {
+                if (Application.isPlaying)
+                    Destroy(child);
+                else
                     DestroyImmediate(child);
-                }
             }
         }
     }
