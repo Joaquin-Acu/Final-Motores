@@ -43,15 +43,21 @@ namespace DungeonEscape
         private Material floorMaterial;
         private Material ceilingMaterial;
 
+        [Header("Editor & Generation Options")]
+        [SerializeField] private bool generateOnPlay = true; // Si es falso, no se borrará ni regenerará al dar Play (permite diseñar a mano en el Editor)
+
         private GameObject playerInstance;
         private List<GameObject> generatedObjects = new List<GameObject>();
         private NavMeshSurface navMeshSurface;
 
         private void Awake()
         {
-            CreateFallbackMaterials();
-            GenerateDungeon();
-            SetupNavMesh();
+            if (generateOnPlay)
+            {
+                CreateFallbackMaterials();
+                GenerateDungeon();
+            }
+            SetupNavMesh(); // Sigue horneando el NavMesh al iniciar para adaptarse a cualquier cambio manual
         }
 
         private void CreateFallbackMaterials()
@@ -298,6 +304,7 @@ namespace DungeonEscape
 
         public void ClearDungeon()
         {
+            // Borrar objetos registrados en la lista
             foreach (var obj in generatedObjects)
             {
                 if (obj != null)
@@ -309,6 +316,21 @@ namespace DungeonEscape
                 }
             }
             generatedObjects.Clear();
+
+            // Si estamos en el editor y la lista está vacía (por ej. tras reiniciar Unity),
+            // limpiamos todos los hijos del transform para asegurar limpieza completa.
+            if (!Application.isPlaying)
+            {
+                List<GameObject> children = new List<GameObject>();
+                foreach (Transform child in transform)
+                {
+                    children.Add(child.gameObject);
+                }
+                foreach (GameObject child in children)
+                {
+                    DestroyImmediate(child);
+                }
+            }
         }
     }
 
