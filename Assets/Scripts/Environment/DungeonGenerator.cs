@@ -32,6 +32,7 @@ namespace DungeonEscape
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject trapPrefab;
         [SerializeField] private GameObject portalPrefab;
+        [SerializeField] private GameObject torchPrefab; // Prefab de antorcha (con modelo 3D y partículas de fuego)
 
         [Header("Lighting Settings")]
         [SerializeField] private bool generateTorches = true;
@@ -73,11 +74,37 @@ namespace DungeonEscape
             ceilingMaterial.color = new Color(0.1f, 0.1f, 0.1f); // Techo muy oscuro
         }
 
+        private void ConfigureDungeonLighting()
+        {
+            // 1. Apagar o atenuar al mínimo la luz direccional de la escena (el sol)
+            Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+            foreach (Light l in lights)
+            {
+                if (l.type == LightType.Directional)
+                {
+                    l.intensity = 0.02f; // Casi apagada para simular oscuridad de mazmorra
+                    l.color = new Color(0.1f, 0.15f, 0.25f); // Tono azulado frío de penumbra
+                }
+            }
+
+            // 2. Cambiar la iluminación ambiental de la escena a color plano y ponerla casi en negro
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            RenderSettings.ambientSkyColor = new Color(0.01f, 0.01f, 0.015f); // Prácticamente negro absoluto
+            
+            #if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                UnityEditor.EditorUtility.SetDirty(gameObject);
+            }
+            #endif
+        }
+
         [ContextMenu("Generate Dungeon")]
         public void GenerateDungeon()
         {
-            // Asegurar que los materiales estén creados si se genera desde el Editor
+            // Asegurar que los materiales estén creados y la iluminación esté configurada si se genera en el Editor
             CreateFallbackMaterials();
+            ConfigureDungeonLighting();
 
             // Limpiar si ya hay objetos generados (por si se ejecuta en Editor)
             ClearDungeon();
@@ -241,20 +268,47 @@ namespace DungeonEscape
 
         private void SpawnTorch(Vector3 position)
         {
-            GameObject torch = new GameObject("WallTorch");
-            torch.transform.position = position;
-            torch.transform.SetParent(transform);
+            GameObject torch;
+            if (torchPrefab != null)
+            {
+                // Instanciar el modelo 3D de la antorcha
+                torch = Instantiate(torchPrefab, position, Quaternion.identity, transform);
+                
+                // Buscar o añadir luz de antorcha en el prefab
+                Light light = torch.GetComponentInChildren<Light>();
+                if (light == null)
+                {
+                    light = torch.AddComponent<Light>();
+                    light.type = LightType.Point;
+                    light.color = torchColor;
+                    light.range = cellSize * 2f;
+                    light.intensity = 1.5f;
+                }
+                
+                light.shadows = LightShadows.None; // Sigue optimizado sin sombras pesadas
+                
+                // Añadir el script de parpadeo si no lo tiene en el objeto de la luz
+                if (light.gameObject.GetComponent<TorchFlicker>() == null)
+                {
+                    light.gameObject.AddComponent<TorchFlicker>();
+                }
+            }
+            else
+            {
+                // Fallback de prototipado si no hay prefab asignado (solo luz flotante)
+                torch = new GameObject("WallTorch");
+                torch.transform.position = position;
+                torch.transform.SetParent(transform);
 
-            // Añadir luz de antorcha
-            Light light = torch.AddComponent<Light>();
-            light.type = LightType.Point;
-            light.color = torchColor;
-            light.range = cellSize * 2f;
-            light.intensity = 1.5f;
-            light.shadows = LightShadows.None; // Optimización clave: desactivar sombras dinámicas en antorchas para evitar cientos de pases de sombras.
+                Light light = torch.AddComponent<Light>();
+                light.type = LightType.Point;
+                light.color = torchColor;
+                light.range = cellSize * 2f;
+                light.intensity = 1.5f;
+                light.shadows = LightShadows.None;
 
-            // Añadir un script de parpadeo simple para simular fuego
-            torch.AddComponent<TorchFlicker>();
+                torch.AddComponent<TorchFlicker>();
+            }
 
             generatedObjects.Add(torch);
         }
