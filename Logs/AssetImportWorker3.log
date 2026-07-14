@@ -1,11 +1,11 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.3/respin/6000.3.5f1-a1ec4b2f2d19' branch; Version is '6000.3.5f2 (3fa8bc678cb0) revision 4171964'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0" at "2026-07-14T14:35:51.6743003Z"
 OS: 'Windows 11  (10.0.26200) Core' Language: 'es' Physical Memory: 16176 MB
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0" at "2026-07-13T17:03:21.1034976Z"
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
 System  architecture: x64
 Process architecture: x64
-Date: 2026-07-13T17:03:21Z
+Date: 2026-07-14T14:35:51Z
 
 COMMAND LINE ARGUMENTS:
 C:\Users\jota0\OneDrive\Documentos\DOCUMENTOS DEL DISCO C\Unity\6000.3.5f2\Editor\Unity.exe
@@ -19,7 +19,7 @@ C:/Unity/Final-Motores
 -logFile
 Logs/AssetImportWorker3.log
 -srvPort
-59931
+57432
 -licensingIpc
 LicenseClient-jota0
 -job-worker-count
@@ -67,12 +67,12 @@ C:/Unity/Final-Motores
     "memorysetup-job-temp-allocator-block-size-background=1048576"
     "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
     "memorysetup-temp-allocator-size-cloud-worker=32768"
-Player connection [9976]  Target information:
+Player connection [5884]  Target information:
 
-Player connection [9976]  * "[IP] 192.168.18.184 [Port] 0 [Flags] 2 [Guid] 1137209903 [EditorId] 1137209903 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LRAR269) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [5884]  * "[IP] 192.168.18.184 [Port] 0 [Flags] 2 [Guid] 3816440137 [EditorId] 3816440137 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LRAR269) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [9976] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [9976] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [5884] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [5884] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 5
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
@@ -84,7 +84,7 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 8.33 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 5.77 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.3.5f2 (3fa8bc678cb0)
 [Subsystems] Discovering subsystems at path C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/Resources/UnitySubsystems
@@ -96,14 +96,11 @@ Direct3D:
     Vendor:   ATI
     VRAM:     8147 MB
     Driver:   32.0.21043.19003
-Shader 'TextMeshPro/Distance Field SSD': fallback shader 'TextMeshPro/Mobile/Distance Field' not found
-Shader 'TextMeshPro/Distance Field': fallback shader 'TextMeshPro/Mobile/Distance Field' not found
-Shader 'TextMeshPro/Distance Field Overlay': fallback shader 'TextMeshPro/Mobile/Distance Field' not found
 Initialize mono
 Mono path[0] = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56268
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56476
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
@@ -111,14 +108,14 @@ Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS 
 [Licensing::Module] Licensing is not yet initialized.
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.4+4293ba1
-  Session Id:              3d5dca8905ee463e8ba1fd15c3d9825b
-  Correlation Id:          0684747608745e9a3bed81b40e933fdf
-  External correlation Id: 8218252434925403523
+  Session Id:              cfbd02eba5c34861bce83b82bcb86731
+  Correlation Id:          b7f67bffb83f63ce838111f673cd9969
+  External correlation Id: 4509388083157522995
   Machine Id:              obXOFmPQrb485TETH0UPRErRG/A=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jota0" (connect: 0.00s, validation: 0.00s, handshake: 2.45s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0-notifications" at "2026-07-13T17:03:23.5590693Z"
-[Licensing::Module] Licensing Background thread has ended after 2.46s
-[Licensing::Module] Licensing is initialized (took 1.58s).
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jota0" (connect: 0.00s, validation: 0.00s, handshake: 2.61s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0-notifications" at "2026-07-14T14:35:54.2897634Z"
+[Licensing::Module] Licensing Background thread has ended after 2.62s
+[Licensing::Module] Licensing is initialized (took 1.67s).
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] License group:
   Id: 4674131669422-UnityPersXXXX
@@ -126,42 +123,42 @@ Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS 
   Type: Assigned
   Expiration: Unlimited
 Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 1.583233 seconds.
-- Loaded All Assemblies, in  2.068 seconds
+Registered in 1.683142 seconds.
+- Loaded All Assemblies, in  2.273 seconds
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.437 seconds
-Domain Reload Profiling: 2500ms
-	BeginReloadAssembly (175ms)
+- Finished resetting the current domain, in  0.514 seconds
+Domain Reload Profiling: 2781ms
+	BeginReloadAssembly (211ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (52ms)
-	RebuildNativeTypeToScriptingClass (18ms)
-	initialDomainReloadingComplete (1641ms)
-	LoadAllAssembliesAndSetupDomain (177ms)
-		LoadAssemblies (165ms)
+	RebuildCommonClasses (58ms)
+	RebuildNativeTypeToScriptingClass (16ms)
+	initialDomainReloadingComplete (1748ms)
+	LoadAllAssembliesAndSetupDomain (233ms)
+		LoadAssemblies (206ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (173ms)
-			TypeCache.Refresh (171ms)
-				TypeCache.ScanAssembly (158ms)
+		AnalyzeDomain (228ms)
+			TypeCache.Refresh (226ms)
+				TypeCache.ScanAssembly (211ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (437ms)
+	FinalizeReload (514ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (388ms)
+		SetupLoadedEditorAssemblies (458ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (55ms)
-			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (81ms)
-			ProcessInitializeOnLoadAttributes (151ms)
-			ProcessInitializeOnLoadMethodAttributes (98ms)
+			InitializePlatformSupportModulesInManaged (65ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (94ms)
+			ProcessInitializeOnLoadAttributes (187ms)
+			ProcessInitializeOnLoadMethodAttributes (106ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -174,9 +171,9 @@ Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInter
 Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
 Begin MonoManager ReloadAssembly
 [Licensing::Client] Successfully resolved entitlement details
-- Loaded All Assemblies, in  0.866 seconds
+- Loaded All Assemblies, in  1.119 seconds
 Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-Refreshing native plugins compatible for Editor in 1.25 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.26 ms, found 3 plugins.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
@@ -190,106 +187,48 @@ Package Manager log level set to [2]
 [Package Manager] Cannot connect to Unity Package Manager local server
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.812 seconds
-Domain Reload Profiling: 1669ms
-	BeginReloadAssembly (195ms)
+- Finished resetting the current domain, in  0.803 seconds
+Domain Reload Profiling: 1908ms
+	BeginReloadAssembly (235ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (6ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (36ms)
-	RebuildCommonClasses (37ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (45ms)
-	LoadAllAssembliesAndSetupDomain (568ms)
-		LoadAssemblies (416ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (260ms)
-			TypeCache.Refresh (183ms)
-				TypeCache.ScanAssembly (169ms)
-			BuildScriptInfoCaches (61ms)
-			ResolveRequiredComponents (11ms)
-	FinalizeReload (813ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (589ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (3ms)
-			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (151ms)
-			ProcessInitializeOnLoadAttributes (356ms)
-			ProcessInitializeOnLoadMethodAttributes (65ms)
-			AfterProcessingInitializeOnLoad (11ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
-Refreshing native plugins compatible for Editor in 1.29 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 17 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 6631 unused Assets / (4.7 MB). Loaded Objects now: 7443.
-Memory consumption went from 147.2 MB to 142.5 MB.
-Total: 10.290900 ms (FindLiveObjects: 0.679000 ms CreateObjectMapping: 0.920500 ms MarkObjects: 6.318400 ms  DeleteObjects: 2.372500 ms)
-
-========================================================================
-Received Prepare
-Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-Begin MonoManager ReloadAssembly
-[Licensing::Client] Successfully resolved entitlement details
-- Loaded All Assemblies, in  0.820 seconds
-Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-Refreshing native plugins compatible for Editor in 1.28 ms, found 3 plugins.
-Native extension for UWP target not found
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Unable to send message (not connected to server process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Unable to send message (not connected to server process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.782 seconds
-Domain Reload Profiling: 1597ms
-	BeginReloadAssembly (229ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (57ms)
-	RebuildCommonClasses (35ms)
+		CreateAndSetChildDomain (42ms)
+	RebuildCommonClasses (45ms)
 	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (35ms)
-	LoadAllAssembliesAndSetupDomain (503ms)
-		LoadAssemblies (398ms)
+	initialDomainReloadingComplete (52ms)
+	LoadAllAssembliesAndSetupDomain (760ms)
+		LoadAssemblies (562ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (206ms)
-			TypeCache.Refresh (8ms)
-				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (178ms)
-			ResolveRequiredComponents (16ms)
-	FinalizeReload (782ms)
+		AnalyzeDomain (327ms)
+			TypeCache.Refresh (231ms)
+				TypeCache.ScanAssembly (211ms)
+			BuildScriptInfoCaches (80ms)
+			ResolveRequiredComponents (11ms)
+	FinalizeReload (804ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
 		SetupLoadedEditorAssemblies (598ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (3ms)
 			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (154ms)
-			ProcessInitializeOnLoadAttributes (346ms)
-			ProcessInitializeOnLoadMethodAttributes (78ms)
-			AfterProcessingInitializeOnLoad (13ms)
+			BeforeProcessingInitializeOnLoad (161ms)
+			ProcessInitializeOnLoadAttributes (356ms)
+			ProcessInitializeOnLoadMethodAttributes (63ms)
+			AfterProcessingInitializeOnLoad (11ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (19ms)
-Refreshing native plugins compatible for Editor in 1.65 ms, found 3 plugins.
+		AwakeInstancesAfterBackupRestoration (6ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 1.29 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 17 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 6627 unused Assets / (5.0 MB). Loaded Objects now: 7459.
-Memory consumption went from 152.1 MB to 147.1 MB.
-Total: 11.954400 ms (FindLiveObjects: 0.823100 ms CreateObjectMapping: 1.254400 ms MarkObjects: 6.940900 ms  DeleteObjects: 2.933600 ms)
+Unloading 6631 unused Assets / (4.4 MB). Loaded Objects now: 7444.
+Memory consumption went from 147.3 MB to 143.0 MB.
+Total: 8.548800 ms (FindLiveObjects: 0.672700 ms CreateObjectMapping: 0.433400 ms MarkObjects: 5.469800 ms  DeleteObjects: 1.972100 ms)
 
-Prepare: number of updated asset objects reloaded= 0
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

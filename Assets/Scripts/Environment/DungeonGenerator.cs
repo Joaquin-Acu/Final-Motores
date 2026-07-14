@@ -115,14 +115,20 @@ namespace DungeonEscape
             string[] lines = mapLayout.Split('\n');
             int rows = lines.Length;
 
+            // Construir matriz para consulta de vecinos
+            string[][] grid = new string[rows][];
+            for (int i = 0; i < rows; i++)
+            {
+                grid[i] = lines[i].Trim().Split(' ');
+            }
+
             for (int r = 0; r < rows; r++)
             {
-                string[] cells = lines[r].Trim().Split(' ');
-                int cols = cells.Length;
+                int cols = grid[r].Length;
 
                 for (int c = 0; c < cols; c++)
                 {
-                    string cellType = cells[c];
+                    string cellType = grid[r][c];
                     Vector3 position = new Vector3(c * cellSize, 0f, -r * cellSize);
 
                     // Siempre generar suelo y techo para pasillos y salas
@@ -134,7 +140,7 @@ namespace DungeonEscape
                     switch (cellType)
                     {
                         case "W": // Pared
-                            SpawnWall(position);
+                            SpawnWall(r, c, position, grid);
                             break;
                         case "P": // Jugador
                             if (playerInstance != null)
@@ -158,43 +164,49 @@ namespace DungeonEscape
                             break;
                         case "K": // Llave
                             GameObject keyObj = SpawnObject(keyPrefab, position + Vector3.up * 0.5f, "KeyCollectible", Color.yellow, PrimitiveType.Cylinder);
-                            if (keyPrefab == null && keyObj != null)
+                            if (keyObj != null && keyObj.GetComponentInChildren<KeyCollectible>() == null)
                             {
                                 keyObj.AddComponent<KeyCollectible>();
                             }
                             break;
                         case "D": // Puerta
                             GameObject doorObj = SpawnObject(doorPrefab, position, "DungeonDoor", Color.cyan, PrimitiveType.Cube, new Vector3(cellSize, cellSize, 0.3f));
-                            if (doorPrefab == null && doorObj != null)
+                            if (doorObj != null && doorObj.GetComponentInChildren<DungeonDoor>() == null)
                             {
                                 doorObj.AddComponent<DungeonDoor>();
                             }
                             break;
                         case "C": // Cofre
                             GameObject chestObj = SpawnObject(chestPrefab, position, "DungeonChest", Color.magenta, PrimitiveType.Cube, new Vector3(0.8f * cellSize, 0.6f * cellSize, 0.5f * cellSize));
-                            if (chestPrefab == null && chestObj != null)
+                            if (chestObj != null && chestObj.GetComponentInChildren<DungeonChest>() == null)
                             {
                                 chestObj.AddComponent<DungeonChest>();
                             }
                             break;
                         case "E": // Enemigo
                             GameObject enemyObj = SpawnObject(enemyPrefab, position + Vector3.up * 0.5f, "Enemy", Color.red, PrimitiveType.Capsule);
-                            if (enemyPrefab == null && enemyObj != null)
+                            if (enemyObj != null)
                             {
-                                enemyObj.AddComponent<NavMeshAgent>();
-                                enemyObj.AddComponent<EnemyAI>();
+                                if (enemyObj.GetComponentInChildren<NavMeshAgent>() == null)
+                                {
+                                    enemyObj.AddComponent<NavMeshAgent>();
+                                }
+                                if (enemyObj.GetComponentInChildren<EnemyAI>() == null)
+                                {
+                                    enemyObj.AddComponent<EnemyAI>();
+                                }
                             }
                             break;
                         case "S": // Trampa
                             GameObject trapObj = SpawnObject(trapPrefab, position, "SpikeTrap", Color.grey, PrimitiveType.Cube, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
-                            if (trapPrefab == null && trapObj != null)
+                            if (trapObj != null && trapObj.GetComponentInChildren<SpikeTrap>() == null)
                             {
                                 trapObj.AddComponent<SpikeTrap>();
                             }
                             break;
                         case "X": // Portal
                             GameObject portalObj = SpawnObject(portalPrefab, position, "ExitPortal", Color.green, PrimitiveType.Cylinder, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
-                            if (portalPrefab == null && portalObj != null)
+                            if (portalObj != null && portalObj.GetComponentInChildren<ExitPortal>() == null)
                             {
                                 portalObj.AddComponent<ExitPortal>();
                             }
@@ -240,30 +252,67 @@ namespace DungeonEscape
             generatedObjects.Add(ceiling);
         }
 
-        private void SpawnWall(Vector3 position)
+        private void SpawnWall(int r, int c, Vector3 position, string[][] grid)
         {
-            GameObject wall;
             if (wallPrefab != null)
             {
-                wall = Instantiate(wallPrefab, position + Vector3.up * (cellSize / 2f), Quaternion.identity, transform);
+                int rows = grid.Length;
+                int cols = grid[r].Length;
+
+                // Si colinda con un pasillo/sala transitable, generamos una cara de la pared en ese borde
+                // r-1 = Norte, r+1 = Sur, c+1 = Este, c-1 = Oeste
+
+                // Cara Norte (mira al norte, rota 0 grados)
+                if (r > 0 && IsCellWalkable(grid[r - 1][c]))
+                {
+                    SpawnWallFace(position + Vector3.forward * (cellSize / 2f), Quaternion.Euler(0f, 0f, 0f));
+                }
+                // Cara Sur (mira al sur, rota 180 grados)
+                if (r < rows - 1 && IsCellWalkable(grid[r + 1][c]))
+                {
+                    SpawnWallFace(position + Vector3.back * (cellSize / 2f), Quaternion.Euler(0f, 180f, 0f));
+                }
+                // Cara Este (mira al este, rota 90 grados)
+                if (c < cols - 1 && IsCellWalkable(grid[r][c + 1]))
+                {
+                    SpawnWallFace(position + Vector3.right * (cellSize / 2f), Quaternion.Euler(0f, 90f, 0f));
+                }
+                // Cara Oeste (mira al oeste, rota 270 grados)
+                if (c > 0 && IsCellWalkable(grid[r][c - 1]))
+                {
+                    SpawnWallFace(position + Vector3.left * (cellSize / 2f), Quaternion.Euler(0f, 270f, 0f));
+                }
             }
             else
             {
-                wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                // Fallback de cubo sólido de Unity
+                GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 wall.transform.position = position + Vector3.up * (cellSize / 2f);
                 wall.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
                 wall.GetComponent<Renderer>().material = wallMaterial;
                 wall.transform.SetParent(transform);
+                wall.isStatic = true;
+                generatedObjects.Add(wall);
             }
-            // En Unity 6 / URP, las paredes deben marcarse como estáticas para optimizar
-            wall.isStatic = true;
-            generatedObjects.Add(wall);
 
             // Generar antorchas/luces dinámicas en algunas paredes
             if (generateTorches && Random.value < 0.25f)
             {
                 SpawnTorch(position + Vector3.up * torchHeight);
             }
+        }
+
+        private void SpawnWallFace(Vector3 pos, Quaternion rot)
+        {
+            GameObject face = Instantiate(wallPrefab, pos, rot, transform);
+            face.isStatic = true;
+            generatedObjects.Add(face);
+        }
+
+        private bool IsCellWalkable(string cellType)
+        {
+            // Las celdas transitables que necesitan pared si colindan con un muro
+            return cellType != "W" && cellType != " ";
         }
 
         private void SpawnTorch(Vector3 position)
@@ -359,6 +408,7 @@ namespace DungeonEscape
             Debug.Log("NavMesh horneado con éxito para la IA.");
         }
 
+        [ContextMenu("Clear Dungeon")]
         public void ClearDungeon()
         {
             // 1. Borrar objetos registrados en la lista en tiempo de ejecución
