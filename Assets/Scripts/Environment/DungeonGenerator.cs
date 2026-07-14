@@ -121,22 +121,47 @@ namespace DungeonEscape
                             }
                             break;
                         case "K": // Llave
-                            SpawnObject(keyPrefab, position + Vector3.up * 0.5f, "KeyCollectible", Color.yellow, PrimitiveType.Cylinder);
+                            GameObject keyObj = SpawnObject(keyPrefab, position + Vector3.up * 0.5f, "KeyCollectible", Color.yellow, PrimitiveType.Cylinder);
+                            if (keyPrefab == null && keyObj != null)
+                            {
+                                keyObj.AddComponent<KeyCollectible>();
+                            }
                             break;
                         case "D": // Puerta
-                            SpawnObject(doorPrefab, position, "DungeonDoor", Color.cyan, PrimitiveType.Cube, new Vector3(cellSize, cellSize, 0.3f));
+                            GameObject doorObj = SpawnObject(doorPrefab, position, "DungeonDoor", Color.cyan, PrimitiveType.Cube, new Vector3(cellSize, cellSize, 0.3f));
+                            if (doorPrefab == null && doorObj != null)
+                            {
+                                doorObj.AddComponent<DungeonDoor>();
+                            }
                             break;
                         case "C": // Cofre
-                            SpawnObject(chestPrefab, position, "DungeonChest", Color.magenta, PrimitiveType.Cube, new Vector3(0.8f * cellSize, 0.6f * cellSize, 0.5f * cellSize));
+                            GameObject chestObj = SpawnObject(chestPrefab, position, "DungeonChest", Color.magenta, PrimitiveType.Cube, new Vector3(0.8f * cellSize, 0.6f * cellSize, 0.5f * cellSize));
+                            if (chestPrefab == null && chestObj != null)
+                            {
+                                chestObj.AddComponent<DungeonChest>();
+                            }
                             break;
                         case "E": // Enemigo
-                            SpawnObject(enemyPrefab, position + Vector3.up * 0.5f, "Enemy", Color.red, PrimitiveType.Capsule);
+                            GameObject enemyObj = SpawnObject(enemyPrefab, position + Vector3.up * 0.5f, "Enemy", Color.red, PrimitiveType.Capsule);
+                            if (enemyPrefab == null && enemyObj != null)
+                            {
+                                enemyObj.AddComponent<NavMeshAgent>();
+                                enemyObj.AddComponent<EnemyAI>();
+                            }
                             break;
                         case "S": // Trampa
-                            SpawnObject(trapPrefab, position, "SpikeTrap", Color.grey, PrimitiveType.Cube, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
+                            GameObject trapObj = SpawnObject(trapPrefab, position, "SpikeTrap", Color.grey, PrimitiveType.Cube, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
+                            if (trapPrefab == null && trapObj != null)
+                            {
+                                trapObj.AddComponent<SpikeTrap>();
+                            }
                             break;
                         case "X": // Portal
-                            SpawnObject(portalPrefab, position, "ExitPortal", Color.green, PrimitiveType.Cylinder, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
+                            GameObject portalObj = SpawnObject(portalPrefab, position, "ExitPortal", Color.green, PrimitiveType.Cylinder, new Vector3(cellSize * 0.8f, 0.1f, cellSize * 0.8f));
+                            if (portalPrefab == null && portalObj != null)
+                            {
+                                portalObj.AddComponent<ExitPortal>();
+                            }
                             break;
                     }
                 }
@@ -225,7 +250,7 @@ namespace DungeonEscape
             generatedObjects.Add(torch);
         }
 
-        private void SpawnObject(GameObject prefab, Vector3 position, string defaultName, Color defaultColor, PrimitiveType primitive, Vector3? scale = null)
+        private GameObject SpawnObject(GameObject prefab, Vector3 position, string defaultName, Color defaultColor, PrimitiveType primitive, Vector3? scale = null)
         {
             GameObject obj;
             if (prefab != null)
@@ -250,6 +275,7 @@ namespace DungeonEscape
             
             obj.transform.SetParent(transform);
             generatedObjects.Add(obj);
+            return obj;
         }
 
         private void SetupNavMesh()
