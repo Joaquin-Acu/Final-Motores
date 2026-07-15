@@ -8,15 +8,15 @@ namespace DungeonEscape
     {
         [Header("Door Settings")]
         [SerializeField] private int keysRequired = 1;
-        [SerializeField] private float slideHeight = 3.5f;
+        [SerializeField] private float openAngle = -90f;     // Ángulo de apertura en el eje Y (ej: 90 o -90)
         [SerializeField] private float openSpeed = 2f;
 
         [Header("Visual Meshes")]
-        [SerializeField] private Transform doorMeshTransform; // El objeto de la puerta que subirá
+        [SerializeField] private Transform doorMeshTransform; // El objeto de la hoja de la puerta que rotará
 
         private bool isOpen = false;
-        private Vector3 closedPosition;
-        private Vector3 openPosition;
+        private Quaternion closedRotation;
+        private Quaternion openRotation;
 
         private void Start()
         {
@@ -25,11 +25,11 @@ namespace DungeonEscape
 
             if (doorMeshTransform == null)
             {
-                doorMeshTransform = transform; // Si no hay referencia asignada, mover todo el GameObject
+                doorMeshTransform = transform; // Si no hay referencia, rotar todo el objeto
             }
 
-            closedPosition = doorMeshTransform.localPosition;
-            openPosition = closedPosition + Vector3.up * slideHeight;
+            closedRotation = doorMeshTransform.localRotation;
+            openRotation = closedRotation * Quaternion.Euler(0f, openAngle, 0f);
         }
 
         public void Interact()
@@ -43,8 +43,7 @@ namespace DungeonEscape
             }
             else
             {
-                Debug.Log($"No tienes suficientes llaves. Necesitas {keysRequired} llave(s).");
-                // Podríamos disparar un evento de sonido o UI que muestre "Llaves insuficientes"
+                Debug.Log($"No tienes suficientes llaves. Necesitas {keysRequired} llave/s.");
             }
         }
 
@@ -58,21 +57,22 @@ namespace DungeonEscape
         {
             isOpen = true;
             DungeonEvents.OnDoorUnlocked?.Invoke();
-            StartCoroutine(SlideOpenCoroutine());
+            StartCoroutine(SwingOpenCoroutine());
         }
 
-        private IEnumerator SlideOpenCoroutine()
+        private IEnumerator SwingOpenCoroutine()
         {
             float elapsed = 0f;
             while (elapsed < 1f)
             {
                 elapsed += Time.deltaTime * openSpeed;
-                doorMeshTransform.localPosition = Vector3.Lerp(closedPosition, openPosition, elapsed);
+                doorMeshTransform.localRotation = Quaternion.Slerp(closedRotation, openRotation, elapsed);
                 yield return null;
             }
-            doorMeshTransform.localPosition = openPosition;
-            
-            // Opcional: Desactivar colisiones para asegurar paso libre si no es parte del mesh que subió
+            doorMeshTransform.localRotation = openRotation;
+
+            // Si rotamos todo el GameObject, apagamos el colisionador para poder pasar libremente.
+            // Si el colisionador está en un hijo que rotó con la puerta, el paso ya queda libre físicamente.
             Collider col = GetComponent<Collider>();
             if (col != null && doorMeshTransform == transform)
             {
