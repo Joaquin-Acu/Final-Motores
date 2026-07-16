@@ -10,7 +10,6 @@ namespace DungeonEscape
         [SerializeField] private GameObject keyPrefabToSpawn;
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private float keyPopForce = 4f;
-        [SerializeField] private AudioClip openSfx;
 
         [Header("Animation Settings")]
         [SerializeField] private Transform chestLid; // Tapa del cofre a rotar
@@ -49,11 +48,6 @@ namespace DungeonEscape
 
         private IEnumerator OpenChestCoroutine()
         {
-            if (openSfx != null && AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySFXAtPosition(openSfx, transform.position);
-            }
-
             // Rotar la tapa gradualmente
             if (chestLid != null)
             {

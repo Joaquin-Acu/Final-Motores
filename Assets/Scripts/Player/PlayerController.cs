@@ -11,20 +11,12 @@ namespace DungeonEscape
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float sprintMultiplier = 1.5f;
-        [SerializeField] private float jumpForce = 5f;
-        
-        [Header("Ground Check")]
-        [SerializeField] private Transform groundCheck;
-        [SerializeField] private float groundDistance = 0.4f;
-        [SerializeField] private LayerMask groundMask;
 
         private Rigidbody rb;
         private PlayerInput playerInput;
         private InputAction moveAction;
-        private InputAction jumpAction;
         private InputAction sprintAction;
 
-        private bool isGrounded;
         private Vector2 moveInput;
         private bool isSprinting;
 
@@ -45,7 +37,6 @@ namespace DungeonEscape
             if (playerInput != null && playerInput.actions != null)
             {
                 moveAction = playerInput.actions.FindAction("Move");
-                jumpAction = playerInput.actions.FindAction("Jump");
                 sprintAction = playerInput.actions.FindAction("Sprint");
             }
             else
@@ -65,15 +56,6 @@ namespace DungeonEscape
             if (sprintAction != null)
             {
                 isSprinting = sprintAction.IsPressed();
-            }
-
-            // Ground Check
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-            // Saltar
-            if (jumpAction != null && jumpAction.WasPressedThisFrame() && isGrounded)
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
 
@@ -97,15 +79,6 @@ namespace DungeonEscape
 
             // Aplicar velocidad al Rigidbody
             rb.linearVelocity = targetVelocity;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (groundCheck != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
-            }
         }
     }
 }
