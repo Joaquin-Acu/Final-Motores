@@ -30,6 +30,7 @@ namespace DungeonEscape
         [SerializeField] private int attackDamage = 20;
         [SerializeField] private float attackRange = 1.5f;
         [SerializeField] private float attackCooldown = 1.5f;
+        [SerializeField] private float attackDamageDelay = 0.5f; // Retardo en segundos para sincronizar el impacto con el golpe visual de la animación
 
         [Header("Animations")]
         [SerializeField] private Animator animator;
@@ -206,10 +207,27 @@ namespace DungeonEscape
                 animator.SetTrigger("Attack");
             }
 
-            if (playerHealth != null)
+            StartCoroutine(DamageDelayCoroutine());
+        }
+
+        private IEnumerator DamageDelayCoroutine()
+        {
+            yield return new WaitForSeconds(attackDamageDelay);
+
+            // Verificar que el jugador siga a rango de golpe tras el retraso de la animación
+            if (playerTransform != null && playerHealth != null)
             {
-                playerHealth.TakeDamage(attackDamage);
-                Debug.Log($"¡Enemigo atacó e infligió {attackDamage} de daño!");
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                // Damos un margen extra de 0.5m por si el jugador se está moviendo hacia atrás
+                if (distanceToPlayer <= attackRange + 0.5f)
+                {
+                    playerHealth.TakeDamage(attackDamage);
+                    Debug.Log($"¡Enemigo conectó el golpe e infligió {attackDamage} de daño!");
+                }
+                else
+                {
+                    Debug.Log("¡El jugador esquivó el ataque del enemigo!");
+                }
             }
         }
 
