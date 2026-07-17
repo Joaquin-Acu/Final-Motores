@@ -401,12 +401,7 @@ namespace DungeonEscape
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
 
-            // Dibujar cono de visión en amarillo
-            Gizmos.color = Color.yellow;
-            Vector3 fovLeft = Quaternion.AngleAxis(-fovAngle / 2f, Vector3.up) * transform.forward;
-            Vector3 fovRight = Quaternion.AngleAxis(fovAngle / 2f, Vector3.up) * transform.forward;
-            Gizmos.DrawRay(transform.position, fovLeft * detectionRadius);
-            Gizmos.DrawRay(transform.position, fovRight * detectionRadius);
+           
         }
     }
 }
