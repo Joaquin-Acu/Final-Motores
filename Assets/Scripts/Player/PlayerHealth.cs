@@ -91,7 +91,23 @@ namespace DungeonEscape
         {
             // Detener el juego e ir a pantalla de derrota
             DungeonEvents.OnGameStateChanged?.Invoke(GameState.GameOver);
-            gameObject.SetActive(false); // Desactivar el jugador
+
+            // Desactivar controles para que no pueda moverse ni mirar
+            PlayerController pc = GetComponent<PlayerController>();
+            if (pc != null) pc.enabled = false;
+
+            PlayerInteraction pi = GetComponent<PlayerInteraction>();
+            if (pi != null) pi.enabled = false;
+
+            MouseLook ml = GetComponentInChildren<MouseLook>();
+            if (ml != null) ml.enabled = false;
+
+            // Desactivar colisiones y detener físicas para que los enemigos no empujen el cadáver
+            Collider col = GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null) rb.isKinematic = true;
         }
     }
 }

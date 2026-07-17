@@ -6818,85 +6818,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.3467789, y: 0.5856255, z: 4.347168}
   m_Center: {x: -11.368832, y: 0.20718724, z: -3.3681297}
---- !u!1 &477100068
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 477100072}
-  - component: {fileID: 477100071}
-  - component: {fileID: 477100070}
-  - component: {fileID: 477100073}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &477100070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477100068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48fde4c285d94547ba4be16313fdc7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.PauseController
---- !u!114 &477100071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477100068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acfad356e245b7b4aa0e12fafe999769, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.GameManager
-  currentState: 0
-  initialKeys: 0
---- !u!4 &477100072
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477100068}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 543.9225, y: 243.60194, z: -2.33823}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &477100073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477100068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607fdfa093d40364f87f7e223fd18a4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.AudioManager
-  musicMixerGroup: {fileID: -8842543366521015252, guid: cc20d24ecddb4074b85cced6b206dc26, type: 2}
-  sfxMixerGroup: {fileID: -8277104172810191986, guid: cc20d24ecddb4074b85cced6b206dc26, type: 2}
-  menuMusic: {fileID: 8300000, guid: cc31944b855c53b4a930282d77515b2c, type: 3}
-  victoryMusic: {fileID: 8300000, guid: cf369848fa43eff40aac81eafbcea08f, type: 3}
-  gameOverMusic: {fileID: 8300000, guid: cc31944b855c53b4a930282d77515b2c, type: 3}
-  doorOpenSfx: {fileID: 8300000, guid: 37c96df6f0dec5e4d94b02f513fa7d71, type: 3}
-  chestOpenSfx: {fileID: 8300000, guid: c00cb15a7d2c114408153156528cc697, type: 3}
 --- !u!4 &480932341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516630517374711742, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
@@ -34850,6 +34771,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ea4a18264ff0654fa1bb4a337b8dc92, type: 3}
+--- !u!1001 &553955931559667446
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 543.9225
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 243.60194
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.33823
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075678505556107515, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925933374655889633, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6033c1992e1596f438937260ec59b2b1, type: 3}
 --- !u!1001 &857530438415514678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34992,7 +34970,7 @@ SceneRoots:
   - {fileID: 1262870312}
   - {fileID: 1182688947}
   - {fileID: 429327724}
-  - {fileID: 477100072}
+  - {fileID: 553955931559667446}
   - {fileID: 449766744}
   - {fileID: 1019081815}
   - {fileID: 733188999}

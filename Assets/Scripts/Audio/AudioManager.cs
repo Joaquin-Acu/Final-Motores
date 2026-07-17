@@ -37,6 +37,15 @@ namespace DungeonEscape
             InitializeAudioSources();
         }
 
+        private void Start()
+        {
+            // Reproducir música inicial según el estado actual en el GameManager por si hubo retraso en la carga
+            if (GameManager.Instance != null)
+            {
+                HandleGameStateChanged(GameManager.Instance.CurrentState);
+            }
+        }
+
         private void OnEnable()
         {
             DungeonEvents.OnDoorUnlocked += PlayDoorSfx;
