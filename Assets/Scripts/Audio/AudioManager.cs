@@ -22,6 +22,7 @@ namespace DungeonEscape
 
         private AudioSource bgmSource;
         private AudioSource sfxSource;
+        private AudioListener localListener;
 
         private void Awake()
         {
@@ -69,10 +70,24 @@ namespace DungeonEscape
             {
                 sfxSource.outputAudioMixerGroup = sfxMixerGroup;
             }
+
+            // AudioListener local de respaldo (se activa en pantallas donde el jugador se desactive, ej: Game Over)
+            localListener = GetComponent<AudioListener>();
+            if (localListener == null)
+            {
+                localListener = gameObject.AddComponent<AudioListener>();
+            }
+            localListener.enabled = false; // Desactivado por defecto durante el gameplay
         }
 
         private void HandleGameStateChanged(GameState state)
         {
+            // Habilitar el AudioListener de respaldo en derrota si el jugador se desactiva
+            if (localListener != null)
+            {
+                localListener.enabled = (state == GameState.GameOver);
+            }
+
             switch (state)
             {
                 case GameState.MainMenu:
