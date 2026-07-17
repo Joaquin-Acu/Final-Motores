@@ -44,6 +44,7 @@ namespace DungeonEscape
         [SerializeField] private AudioSource enemyAudioSource; // AudioSource local en el enemigo (3D)
         [SerializeField] private AudioMixerGroup sfxGroup; // Enrutar al canal de SFX
         [SerializeField] private AudioClip growlSfx; // Sonido de gruñido del zombie (wav)
+        [SerializeField] private AudioClip hitSfx; // Sonido de golpe al impactar al jugador (wav)
         [SerializeField] private float growlCooldown = 3.0f; // Tiempo de espera obligatorio entre gruñidos para evitar solapamientos
 
         private NavMeshAgent agent;
@@ -366,6 +367,11 @@ namespace DungeonEscape
                 if (distanceToPlayer <= attackRange + 0.5f)
                 {
                     playerHealth.TakeDamage(attackDamage);
+
+                    if (enemyAudioSource != null && hitSfx != null)
+                    {
+                        enemyAudioSource.PlayOneShot(hitSfx);
+                    }
                 }
             }
         }
