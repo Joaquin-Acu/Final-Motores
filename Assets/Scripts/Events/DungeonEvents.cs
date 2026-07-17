@@ -17,18 +17,18 @@ namespace DungeonEscape
         public static Action<GameState> OnGameStateChanged;
 
         // Eventos del jugador
-        public static Action<int> OnPlayerDamage;       // Envía la salud actual
-        public static Action<int> OnPlayerHeal;         // Envía la salud actual
-        public static Action<int> OnPlayerMaxHealthInit;// Envía la salud máxima inicial
+        public static Action<int> OnPlayerDamage;       
+        public static Action<int> OnPlayerHeal;         
+        public static Action<int> OnPlayerMaxHealthInit;
         
         // Eventos de coleccionables y progreso
-        public static Action<int> OnKeyCollected;       // Envía la cantidad recolectada en un objeto
-        public static Action<int> OnKeyCountChanged;    // Envía la cantidad total acumulada de llaves del jugador
+        public static Action<int> OnKeyCollected;       
+        public static Action<int> OnKeyCountChanged;    
         public static Action OnDoorUnlocked;
         public static Action OnChestOpened;
-        public static Action<int, int> OnKeysRequiredUpdate; // Envía (llaves poseídas, llaves requeridas)
+        public static Action<int, int> OnKeysRequiredUpdate; 
 
         // Eventos de UI / Interacción
-        public static Action<bool, string> OnInteractLook; // true/false y el texto a mostrar (ej. "Presiona E para abrir cofre")
-    }
+        public static Action<bool, string> OnInteractLook;
+    }    
 }

@@ -14,7 +14,7 @@ namespace DungeonEscape
 
         [Header("HUD Elements")]
         [SerializeField] private Slider healthSlider;
-        [SerializeField] private TextMeshProUGUI healthText;
+        
         [SerializeField] private TextMeshProUGUI keyCountText;
         [SerializeField] private TextMeshProUGUI interactPromptText;
 
@@ -159,11 +159,6 @@ namespace DungeonEscape
             if (healthSlider != null)
             {
                 healthSlider.value = currentHealth;
-            }
-
-            if (healthText != null)
-            {
-                healthText.text = $"{currentHealth}/{maxHealth}";
             }
         }
 

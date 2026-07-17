@@ -25,7 +25,6 @@ namespace DungeonEscape
         [SerializeField] private float investigationDuration = 3f;
 
         [Header("Patrol Settings")]
-        [SerializeField] private Transform[] patrolWaypoints;
         [SerializeField] private float waypointTolerance = 0.5f;
         [SerializeField] private float randomPatrolRadius = 10f;
 
@@ -50,8 +49,6 @@ namespace DungeonEscape
         private PlayerHealth playerHealth;
         private PlayerController playerController;
 
-        private Vector3 targetPatrolPoint;
-        private int currentWaypointIndex = 0;
         private float lastAttackTime = 0f;
         private bool isPlayerVisible = false;
 
@@ -247,20 +244,12 @@ namespace DungeonEscape
         {
             if (!agent.isOnNavMesh) return;
 
-            if (patrolWaypoints != null && patrolWaypoints.Length > 0)
+            Vector3 randomDirection = Random.insideUnitSphere * randomPatrolRadius;
+            randomDirection += transform.position;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomDirection, out hit, randomPatrolRadius, 1))
             {
-                agent.destination = patrolWaypoints[currentWaypointIndex].position;
-                currentWaypointIndex = (currentWaypointIndex + 1) % patrolWaypoints.Length;
-            }
-            else
-            {
-                Vector3 randomDirection = Random.insideUnitSphere * randomPatrolRadius;
-                randomDirection += transform.position;
-                NavMeshHit hit;
-                if (NavMesh.SamplePosition(randomDirection, out hit, randomPatrolRadius, 1))
-                {
-                    agent.destination = hit.position;
-                }
+                agent.destination = hit.position;
             }
         }
 
