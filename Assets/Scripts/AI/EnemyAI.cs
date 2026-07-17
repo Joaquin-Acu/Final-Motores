@@ -44,6 +44,7 @@ namespace DungeonEscape
         [SerializeField] private AudioSource enemyAudioSource; // AudioSource local en el enemigo (3D)
         [SerializeField] private AudioMixerGroup sfxGroup; // Enrutar al canal de SFX
         [SerializeField] private AudioClip growlSfx; // Sonido de gruñido del zombie (wav)
+        [SerializeField] private float growlCooldown = 3.0f; // Tiempo de espera obligatorio entre gruñidos para evitar solapamientos
 
         private NavMeshAgent agent;
         private Transform playerTransform;
@@ -59,6 +60,7 @@ namespace DungeonEscape
         private Vector3 investigationPoint;
         private float investigationTimer = 0f;
         private bool isInvestigatingPointReached = false;
+        private float lastGrowlTime = -99f;
 
         private void Awake()
         {
@@ -175,22 +177,26 @@ namespace DungeonEscape
             EnemyState oldState = currentState;
             currentState = newState;
 
-            // Si pasa a perseguir o investigar desde patrulla, reproducir el rugido del zombie
+            // Si pasa a perseguir o investigar desde patrulla, reproducir el rugido del zombie respetando el cooldown
             if (newState == EnemyState.Chasing && oldState != EnemyState.Chasing)
             {
-                PlayChaseGrowl();
+                TryPlayGrowl();
             }
             else if (newState == EnemyState.Investigating && oldState == EnemyState.Patrolling)
             {
-                PlayChaseGrowl();
+                TryPlayGrowl();
             }
         }
 
-        private void PlayChaseGrowl()
+        private void TryPlayGrowl()
         {
-            if (enemyAudioSource != null && growlSfx != null)
+            if (Time.time - lastGrowlTime >= growlCooldown)
             {
-                enemyAudioSource.PlayOneShot(growlSfx);
+                if (enemyAudioSource != null && growlSfx != null)
+                {
+                    enemyAudioSource.PlayOneShot(growlSfx);
+                    lastGrowlTime = Time.time;
+                }
             }
         }
 
@@ -342,10 +348,8 @@ namespace DungeonEscape
                 animator.SetTrigger("Attack");
             }
 
-            if (enemyAudioSource != null && growlSfx != null)
-            {
-                enemyAudioSource.PlayOneShot(growlSfx);
-            }
+            // Reproducir gruñido de ataque si se cumplió el cooldown
+            TryPlayGrowl();
 
             StartCoroutine(DamageDelayCoroutine());
         }
