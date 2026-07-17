@@ -9,7 +9,7 @@ namespace DungeonEscape
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyAI : MonoBehaviour
     {
-        public enum EnemyState { Patrolling, Chasing, Attacking }
+        public enum EnemyState { Patrolling, Investigating, Chasing, Attacking }
 
         [Header("AI Settings")]
         [SerializeField] private EnemyState currentState = EnemyState.Patrolling;
@@ -21,6 +21,10 @@ namespace DungeonEscape
         [SerializeField] private float fovAngle = 90f;
         [SerializeField] private LayerMask playerMask;
         [SerializeField] private LayerMask obstacleMask;
+
+        [Header("Hearing Settings")]
+        [SerializeField] private float hearingRadius = 6f; // Rango de distancia para escuchar los pasos del jugador
+        [SerializeField] private float investigationDuration = 3f; // Tiempo que pasa buscando en el lugar del sonido
 
         [Header("Patrol Settings")]
         [SerializeField] private Transform[] patrolWaypoints;
@@ -44,10 +48,17 @@ namespace DungeonEscape
         private NavMeshAgent agent;
         private Transform playerTransform;
         private PlayerHealth playerHealth;
+        private PlayerController playerController;
+
         private Vector3 targetPatrolPoint;
         private int currentWaypointIndex = 0;
         private float lastAttackTime = 0f;
         private bool isPlayerVisible = false;
+
+        // Variables de investigación auditiva
+        private Vector3 investigationPoint;
+        private float investigationTimer = 0f;
+        private bool isInvestigatingPointReached = false;
 
         private void Awake()
         {
@@ -79,6 +90,7 @@ namespace DungeonEscape
             {
                 playerTransform = player.transform;
                 playerHealth = player.GetComponent<PlayerHealth>();
+                playerController = player.GetComponent<PlayerController>();
             }
 
             SetNextPatrolPoint();
@@ -95,6 +107,9 @@ namespace DungeonEscape
             {
                 case EnemyState.Patrolling:
                     PatrolBehavior();
+                    break;
+                case EnemyState.Investigating:
+                    InvestigateBehavior();
                     break;
                 case EnemyState.Chasing:
                     ChaseBehavior();
@@ -131,6 +146,28 @@ namespace DungeonEscape
             isPlayerVisible = false;
         }
 
+        private void CheckHearing()
+        {
+            if (playerTransform == null || playerController == null) return;
+
+            // Solo escuchar si el jugador está haciendo ruido de pisadas
+            if (playerController.IsMakingNoise)
+            {
+                float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                if (distanceToPlayer <= hearingRadius)
+                {
+                    // La audición interrumpe patrulla o redirecciona investigación actual
+                    if (currentState == EnemyState.Patrolling || currentState == EnemyState.Investigating)
+                    {
+                        investigationPoint = playerTransform.position;
+                        isInvestigatingPointReached = false;
+                        investigationTimer = 0f;
+                        SetState(EnemyState.Investigating);
+                    }
+                }
+            }
+        }
+
         private void SetState(EnemyState newState)
         {
             if (currentState == newState) return;
@@ -138,8 +175,12 @@ namespace DungeonEscape
             EnemyState oldState = currentState;
             currentState = newState;
 
-            // Si pasa a perseguir, reproducir el rugido del zombie
-            if (newState == EnemyState.Chasing && oldState == EnemyState.Patrolling)
+            // Si pasa a perseguir o investigar desde patrulla, reproducir el rugido del zombie
+            if (newState == EnemyState.Chasing && oldState != EnemyState.Chasing)
+            {
+                PlayChaseGrowl();
+            }
+            else if (newState == EnemyState.Investigating && oldState == EnemyState.Patrolling)
             {
                 PlayChaseGrowl();
             }
@@ -159,17 +200,59 @@ namespace DungeonEscape
 
             agent.speed = walkSpeed;
 
-            // Si detecta al jugador, cambiar a perseguir
+            // 1. La vista tiene prioridad absoluta
             if (isPlayerVisible)
             {
                 SetState(EnemyState.Chasing);
                 return;
             }
 
+            // 2. Si no lo ve, ver si lo escucha
+            CheckHearing();
+            if (currentState == EnemyState.Investigating) return;
+
             // Moverse al punto de patrulla
             if (!agent.pathPending && agent.remainingDistance < waypointTolerance)
             {
                 SetNextPatrolPoint();
+            }
+        }
+
+        private void InvestigateBehavior()
+        {
+            if (!agent.isOnNavMesh) return;
+
+            // 1. La vista tiene prioridad absoluta (si lo ve, persigue de una)
+            if (isPlayerVisible)
+            {
+                SetState(EnemyState.Chasing);
+                return;
+            }
+
+            // 2. Seguir escuchando al jugador mientras investiga (para actualizar su punto de sospecha)
+            CheckHearing();
+
+            agent.speed = walkSpeed * 1.2f; // Camina un poco más rápido y tenso al investigar
+            agent.destination = investigationPoint;
+
+            // Comprobar si llegó a la posición del ruido
+            if (!agent.pathPending && agent.remainingDistance < waypointTolerance)
+            {
+                isInvestigatingPointReached = true;
+            }
+
+            if (isInvestigatingPointReached)
+            {
+                agent.speed = 0f; // Detenerse en el punto de sospecha
+                
+                // Esperar buscando a su alrededor
+                investigationTimer += Time.deltaTime;
+                if (investigationTimer >= investigationDuration)
+                {
+                    // Volver a patrullar pacíficamente
+                    SetState(EnemyState.Patrolling);
+                    SetNextPatrolPoint();
+                }
             }
         }
 
@@ -289,6 +372,7 @@ namespace DungeonEscape
             {
                 // Enviar la velocidad actual para animaciones de caminar/correr
                 animator.SetFloat("Speed", agent.velocity.magnitude);
+                // Activar modo agresivo en animaciones si está persiguiendo
                 animator.SetBool("IsChasing", currentState == EnemyState.Chasing);
             }
         }
@@ -299,11 +383,15 @@ namespace DungeonEscape
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
+            // Dibujar rango de audición en verde (así lo ve visualmente el diseñador en el editor!)
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, hearingRadius);
+
             // Dibujar rango de ataque en rojo
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
 
-            // Dibujar cono de visión
+            // Dibujar cono de visión en amarillo
             Gizmos.color = Color.yellow;
             Vector3 fovLeft = Quaternion.AngleAxis(-fovAngle / 2f, Vector3.up) * transform.forward;
             Vector3 fovRight = Quaternion.AngleAxis(fovAngle / 2f, Vector3.up) * transform.forward;

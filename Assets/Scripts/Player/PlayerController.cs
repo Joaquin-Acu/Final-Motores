@@ -26,6 +26,8 @@ namespace DungeonEscape
         private Vector2 moveInput;
         private bool isSprinting;
 
+        public bool IsMakingNoise => moveInput.magnitude > 0.1f;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
