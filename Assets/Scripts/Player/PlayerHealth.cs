@@ -9,8 +9,8 @@ namespace DungeonEscape
         [SerializeField] private int maxHealth = 100;
         [SerializeField] private float invulnerabilityDuration = 1f;
 
-        [Header("Visual Feedback (Coroutines)")]
-        [SerializeField] private Renderer playerRenderer; // Opcional, si queremos hacer parpadear un objeto (en 1ª persona puede ser el arma o los brazos, o podemos aplicar destello rojo en UI)
+        [Header("Visual Feedback")]
+        [SerializeField] private Renderer playerRenderer;
         [SerializeField] private float flashInterval = 0.1f;
 
         private int currentHealth;
@@ -19,7 +19,6 @@ namespace DungeonEscape
         private void Start()
         {
             currentHealth = maxHealth;
-            // Retrasamos levemente la inicialización para asegurar que los componentes de UI se hayan registrado
             StartCoroutine(InitHealthEvent());
         }
 
@@ -62,8 +61,6 @@ namespace DungeonEscape
         private IEnumerator InvulnerabilityCoroutine()
         {
             isInvulnerable = true;
-            
-            // Efecto visual de parpadeo (si hay un render asignado)
             float elapsed = 0f;
             bool isVisible = true;
 
@@ -74,25 +71,19 @@ namespace DungeonEscape
                     isVisible = !isVisible;
                     playerRenderer.enabled = isVisible;
                 }
-                
                 yield return new WaitForSeconds(flashInterval);
                 elapsed += flashInterval;
             }
 
-            if (playerRenderer != null)
-            {
-                playerRenderer.enabled = true;
-            }
-
+            if (playerRenderer != null) playerRenderer.enabled = true;
             isInvulnerable = false;
         }
 
         private void Die()
         {
-            // Detener el juego e ir a pantalla de derrota
             DungeonEvents.OnGameStateChanged?.Invoke(GameState.GameOver);
 
-            // Desactivar controles para que no pueda moverse ni mirar
+            // Desactivar controles
             PlayerController pc = GetComponent<PlayerController>();
             if (pc != null) pc.enabled = false;
 
@@ -102,7 +93,7 @@ namespace DungeonEscape
             MouseLook ml = GetComponentInChildren<MouseLook>();
             if (ml != null) ml.enabled = false;
 
-            // Desactivar colisiones y detener físicas para que los enemigos no empujen el cadáver
+            // Desactivar colisiones y detener fisicas
             Collider col = GetComponent<Collider>();
             if (col != null) col.enabled = false;
 

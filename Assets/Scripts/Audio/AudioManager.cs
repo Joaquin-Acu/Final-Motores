@@ -39,7 +39,6 @@ namespace DungeonEscape
 
         private void Start()
         {
-            // Reproducir música inicial según el estado actual en el GameManager por si hubo retraso en la carga
             if (GameManager.Instance != null)
             {
                 HandleGameStateChanged(GameManager.Instance.CurrentState);
@@ -62,36 +61,27 @@ namespace DungeonEscape
 
         private void InitializeAudioSources()
         {
-            // BGM Source
             bgmSource = gameObject.AddComponent<AudioSource>();
             bgmSource.loop = true;
             bgmSource.playOnAwake = false;
-            if (musicMixerGroup != null)
-            {
-                bgmSource.outputAudioMixerGroup = musicMixerGroup;
-            }
+            if (musicMixerGroup != null) bgmSource.outputAudioMixerGroup = musicMixerGroup;
 
-            // SFX Source
             sfxSource = gameObject.AddComponent<AudioSource>();
             sfxSource.loop = false;
             sfxSource.playOnAwake = false;
-            if (sfxMixerGroup != null)
-            {
-                sfxSource.outputAudioMixerGroup = sfxMixerGroup;
-            }
+            if (sfxMixerGroup != null) sfxSource.outputAudioMixerGroup = sfxMixerGroup;
 
-            // AudioListener local de respaldo (se activa en pantallas donde el jugador se desactive, ej: Game Over)
+            // AudioListener de respaldo para cuando el jugador se desactiva (GameOver)
             localListener = GetComponent<AudioListener>();
             if (localListener == null)
             {
                 localListener = gameObject.AddComponent<AudioListener>();
             }
-            localListener.enabled = false; // Desactivado por defecto durante el gameplay
+            localListener.enabled = false;
         }
 
         private void HandleGameStateChanged(GameState state)
         {
-            // Habilitar el AudioListener de respaldo en derrota si el jugador se desactiva
             if (localListener != null)
             {
                 localListener.enabled = (state == GameState.GameOver);
@@ -103,7 +93,7 @@ namespace DungeonEscape
                     PlayBGM(menuMusic);
                     break;
                 case GameState.Playing:
-                    StopBGM(); // Sin música en gameplay para destacar los efectos sonoros
+                    StopBGM();
                     break;
                 case GameState.Paused:
                     break;
@@ -119,7 +109,6 @@ namespace DungeonEscape
         public void PlayBGM(AudioClip clip)
         {
             if (bgmSource == null || clip == null) return;
-
             if (bgmSource.clip == clip && bgmSource.isPlaying) return;
 
             bgmSource.Stop();
@@ -129,10 +118,7 @@ namespace DungeonEscape
 
         public void StopBGM()
         {
-            if (bgmSource != null)
-            {
-                bgmSource.Stop();
-            }
+            if (bgmSource != null) bgmSource.Stop();
         }
 
         public void PlaySFX(AudioClip clip)

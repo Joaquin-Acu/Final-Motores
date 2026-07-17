@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace DungeonEscape
 {
@@ -8,11 +9,11 @@ namespace DungeonEscape
     {
         [Header("Door Settings")]
         [SerializeField] private int keysRequired = 1;
-        [SerializeField] private float openAngle = -90f;     // Ángulo de apertura en el eje Y (ej: 90 o -90)
+        [SerializeField] private float openAngle = -90f;
         [SerializeField] private float openSpeed = 2f;
 
         [Header("Visual Meshes")]
-        [SerializeField] private Transform doorMeshTransform; // El objeto de la hoja de la puerta que rotará
+        [SerializeField] private Transform doorMeshTransform;
 
         private bool isOpen = false;
         private Quaternion closedRotation;
@@ -24,7 +25,7 @@ namespace DungeonEscape
 
             if (doorMeshTransform == null)
             {
-                doorMeshTransform = transform; // Si no hay referencia, rotar todo el objeto
+                doorMeshTransform = transform;
             }
 
             closedRotation = doorMeshTransform.localRotation;
@@ -35,27 +36,34 @@ namespace DungeonEscape
         {
             if (isOpen) return;
 
-            // Preguntar al GameManager si el jugador tiene suficientes llaves
             if (GameManager.Instance != null && GameManager.Instance.TryUseKeys(keysRequired))
             {
                 OpenDoor();
             }
             else
             {
-                Debug.Log($"No tienes suficientes llaves. Necesitas {keysRequired} llave/s.");
+                Debug.Log($"Llaves insuficientes. Requeridas: {keysRequired}");
             }
         }
 
         public string GetInteractionPrompt()
         {
             if (isOpen) return string.Empty;
-            return $"Presiona E para abrir la puerta (Requiere {keysRequired} llave/s)";
+            return $"Presiona E para abrir (Requiere {keysRequired} llave/s)";
         }
 
         private void OpenDoor()
         {
             isOpen = true;
             DungeonEvents.OnDoorUnlocked?.Invoke();
+
+            // Desactivar obstáculo NavMesh al abrir
+            NavMeshObstacle obstacle = GetComponent<NavMeshObstacle>();
+            if (obstacle != null)
+            {
+                obstacle.enabled = false;
+            }
+
             StartCoroutine(SwingOpenCoroutine());
         }
 
@@ -70,8 +78,6 @@ namespace DungeonEscape
             }
             doorMeshTransform.localRotation = openRotation;
 
-            // Si rotamos todo el GameObject, apagamos el colisionador para poder pasar libremente.
-            // Si el colisionador está en un hijo que rotó con la puerta, el paso ya queda libre físicamente.
             Collider col = GetComponent<Collider>();
             if (col != null && doorMeshTransform == transform)
             {

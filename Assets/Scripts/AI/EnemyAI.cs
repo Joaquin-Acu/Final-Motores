@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Audio;
@@ -19,33 +18,32 @@ namespace DungeonEscape
         [Header("Detection Settings")]
         [SerializeField] private float detectionRadius = 8f;
         [SerializeField] private float fovAngle = 90f;
-        [SerializeField] private LayerMask playerMask;
         [SerializeField] private LayerMask obstacleMask;
 
         [Header("Hearing Settings")]
-        [SerializeField] private float hearingRadius = 6f; // Rango de distancia para escuchar los pasos del jugador
-        [SerializeField] private float investigationDuration = 3f; // Tiempo que pasa buscando en el lugar del sonido
+        [SerializeField] private float hearingRadius = 6f;
+        [SerializeField] private float investigationDuration = 3f;
 
         [Header("Patrol Settings")]
         [SerializeField] private Transform[] patrolWaypoints;
         [SerializeField] private float waypointTolerance = 0.5f;
-        [SerializeField] private float randomPatrolRadius = 10f; // Usado si no hay waypoints
+        [SerializeField] private float randomPatrolRadius = 10f;
 
         [Header("Attack Settings")]
         [SerializeField] private int attackDamage = 20;
         [SerializeField] private float attackRange = 1.5f;
         [SerializeField] private float attackCooldown = 1.5f;
-        [SerializeField] private float attackDamageDelay = 0.5f; // Retardo en segundos para sincronizar el impacto con el golpe visual de la animación
+        [SerializeField] private float attackDamageDelay = 0.5f;
 
         [Header("Animations")]
         [SerializeField] private Animator animator;
 
         [Header("Audio Settings")]
-        [SerializeField] private AudioSource enemyAudioSource; // AudioSource local en el enemigo (3D)
-        [SerializeField] private AudioMixerGroup sfxGroup; // Enrutar al canal de SFX
-        [SerializeField] private AudioClip growlSfx; // Sonido de gruñido del zombie (wav)
-        [SerializeField] private AudioClip hitSfx; // Sonido de golpe al impactar al jugador (wav)
-        [SerializeField] private float growlCooldown = 3.0f; // Tiempo de espera obligatorio entre gruñidos para evitar solapamientos
+        [SerializeField] private AudioSource enemyAudioSource;
+        [SerializeField] private AudioMixerGroup sfxGroup;
+        [SerializeField] private AudioClip growlSfx;
+        [SerializeField] private AudioClip hitSfx;
+        [SerializeField] private float growlCooldown = 3.0f;
 
         private NavMeshAgent agent;
         private Transform playerTransform;
@@ -57,7 +55,6 @@ namespace DungeonEscape
         private float lastAttackTime = 0f;
         private bool isPlayerVisible = false;
 
-        // Variables de investigación auditiva
         private Vector3 investigationPoint;
         private float investigationTimer = 0f;
         private bool isInvestigatingPointReached = false;
@@ -68,13 +65,12 @@ namespace DungeonEscape
             agent = GetComponent<NavMeshAgent>();
             agent.speed = walkSpeed;
 
-            // Inicializar AudioSource del enemigo si no está asignado
             if (enemyAudioSource == null)
             {
                 enemyAudioSource = gameObject.AddComponent<AudioSource>();
                 enemyAudioSource.playOnAwake = false;
                 enemyAudioSource.loop = false;
-                enemyAudioSource.spatialBlend = 1.0f; // Audio 3D (para escuchar la posición física del zombie)
+                enemyAudioSource.spatialBlend = 1.0f;
                 enemyAudioSource.minDistance = 2f;
                 enemyAudioSource.maxDistance = 15f;
             }
@@ -87,7 +83,6 @@ namespace DungeonEscape
 
         private void Start()
         {
-            // Intentar encontrar al jugador automáticamente
             GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
             {
@@ -105,7 +100,6 @@ namespace DungeonEscape
 
             CheckPlayerVisibility();
 
-            // Máquina de estados
             switch (currentState)
             {
                 case EnemyState.Patrolling:
@@ -134,10 +128,8 @@ namespace DungeonEscape
                 Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
                 float angle = Vector3.Angle(transform.forward, directionToPlayer);
 
-                // Si está dentro del cono visual (FOV)
                 if (angle < fovAngle / 2f)
                 {
-                    // Lanzar Raycast para verificar que no haya paredes en medio
                     if (!Physics.Raycast(transform.position + Vector3.up * 1f, directionToPlayer, distanceToPlayer, obstacleMask))
                     {
                         isPlayerVisible = true;
@@ -153,13 +145,11 @@ namespace DungeonEscape
         {
             if (playerTransform == null || playerController == null) return;
 
-            // Solo escuchar si el jugador está haciendo ruido de pisadas
             if (playerController.IsMakingNoise)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
                 if (distanceToPlayer <= hearingRadius)
                 {
-                    // La audición interrumpe patrulla o redirecciona investigación actual
                     if (currentState == EnemyState.Patrolling || currentState == EnemyState.Investigating)
                     {
                         investigationPoint = playerTransform.position;
@@ -178,7 +168,6 @@ namespace DungeonEscape
             EnemyState oldState = currentState;
             currentState = newState;
 
-            // Si pasa a perseguir o investigar desde patrulla, reproducir el rugido del zombie respetando el cooldown
             if (newState == EnemyState.Chasing && oldState != EnemyState.Chasing)
             {
                 TryPlayGrowl();
@@ -207,18 +196,15 @@ namespace DungeonEscape
 
             agent.speed = walkSpeed;
 
-            // 1. La vista tiene prioridad absoluta
             if (isPlayerVisible)
             {
                 SetState(EnemyState.Chasing);
                 return;
             }
 
-            // 2. Si no lo ve, ver si lo escucha
             CheckHearing();
             if (currentState == EnemyState.Investigating) return;
 
-            // Moverse al punto de patrulla
             if (!agent.pathPending && agent.remainingDistance < waypointTolerance)
             {
                 SetNextPatrolPoint();
@@ -229,20 +215,17 @@ namespace DungeonEscape
         {
             if (!agent.isOnNavMesh) return;
 
-            // 1. La vista tiene prioridad absoluta (si lo ve, persigue de una)
             if (isPlayerVisible)
             {
                 SetState(EnemyState.Chasing);
                 return;
             }
 
-            // 2. Seguir escuchando al jugador mientras investiga (para actualizar su punto de sospecha)
             CheckHearing();
 
-            agent.speed = walkSpeed * 1.2f; // Camina un poco más rápido y tenso al investigar
+            agent.speed = walkSpeed * 1.2f;
             agent.destination = investigationPoint;
 
-            // Comprobar si llegó a la posición del ruido
             if (!agent.pathPending && agent.remainingDistance < waypointTolerance)
             {
                 isInvestigatingPointReached = true;
@@ -250,13 +233,10 @@ namespace DungeonEscape
 
             if (isInvestigatingPointReached)
             {
-                agent.speed = 0f; // Detenerse en el punto de sospecha
-                
-                // Esperar buscando a su alrededor
+                agent.speed = 0f;
                 investigationTimer += Time.deltaTime;
                 if (investigationTimer >= investigationDuration)
                 {
-                    // Volver a patrullar pacíficamente
                     SetState(EnemyState.Patrolling);
                     SetNextPatrolPoint();
                 }
@@ -274,7 +254,6 @@ namespace DungeonEscape
             }
             else
             {
-                // Patrulla aleatoria en NavMesh si no hay waypoints manuales
                 Vector3 randomDirection = Random.insideUnitSphere * randomPatrolRadius;
                 randomDirection += transform.position;
                 NavMeshHit hit;
@@ -294,14 +273,12 @@ namespace DungeonEscape
 
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-            // Si se acerca a rango de ataque
             if (distanceToPlayer <= attackRange)
             {
                 SetState(EnemyState.Attacking);
                 return;
             }
 
-            // Si pierde de vista al jugador a cierta distancia, vuelve a patrullar
             if (!isPlayerVisible && distanceToPlayer > detectionRadius)
             {
                 SetState(EnemyState.Patrolling);
@@ -313,12 +290,11 @@ namespace DungeonEscape
         {
             if (!agent.isOnNavMesh) return;
 
-            agent.speed = 0f; // Detenerse mientras ataca
+            agent.speed = 0f;
             agent.destination = transform.position;
 
-            // Rotar hacia el jugador suavemente
             Vector3 direction = (playerTransform.position - transform.position).normalized;
-            direction.y = 0; // Evitar inclinación
+            direction.y = 0;
             if (direction != Vector3.zero)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
@@ -326,14 +302,12 @@ namespace DungeonEscape
 
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-            // Si el jugador se aleja
             if (distanceToPlayer > attackRange)
             {
                 SetState(EnemyState.Chasing);
                 return;
             }
 
-            // Atacar
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 ExecuteAttack();
@@ -349,9 +323,7 @@ namespace DungeonEscape
                 animator.SetTrigger("Attack");
             }
 
-            // Reproducir gruñido de ataque si se cumplió el cooldown
             TryPlayGrowl();
-
             StartCoroutine(DamageDelayCoroutine());
         }
 
@@ -359,11 +331,9 @@ namespace DungeonEscape
         {
             yield return new WaitForSeconds(attackDamageDelay);
 
-            // Verificar que el jugador siga a rango de golpe tras el retraso de la animación
             if (playerTransform != null && playerHealth != null)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-                // Damos un margen extra de 0.5m por si el jugador se está moviendo hacia atrás
                 if (distanceToPlayer <= attackRange + 0.5f)
                 {
                     playerHealth.TakeDamage(attackDamage);
@@ -380,28 +350,21 @@ namespace DungeonEscape
         {
             if (animator != null)
             {
-                // Enviar la velocidad actual para animaciones de caminar/correr
                 animator.SetFloat("Speed", agent.velocity.magnitude);
-                // Activar modo agresivo en animaciones si está persiguiendo
                 animator.SetBool("IsChasing", currentState == EnemyState.Chasing);
             }
         }
 
         private void OnDrawGizmosSelected()
         {
-            // Dibujar radio de detección en azul
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, detectionRadius);
 
-            // Dibujar rango de audición en verde (así lo ve visualmente el diseñador en el editor!)
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, hearingRadius);
 
-            // Dibujar rango de ataque en rojo
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackRange);
-
-           
         }
     }
 }
