@@ -1,11 +1,11 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.3/respin/6000.3.5f1-a1ec4b2f2d19' branch; Version is '6000.3.5f2 (3fa8bc678cb0) revision 4171964'; Using compiler version '194234433'; Build Type 'Release'
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0" at "2026-07-14T14:35:51.6743003Z"
 OS: 'Windows 11  (10.0.26200) Core' Language: 'es' Physical Memory: 16176 MB
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0" at "2026-07-17T10:31:20.6832081Z"
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
 System  architecture: x64
 Process architecture: x64
-Date: 2026-07-14T14:35:51Z
+Date: 2026-07-17T10:31:20Z
 
 COMMAND LINE ARGUMENTS:
 C:\Users\jota0\OneDrive\Documentos\DOCUMENTOS DEL DISCO C\Unity\6000.3.5f2\Editor\Unity.exe
@@ -19,7 +19,7 @@ C:/Unity/Final-Motores
 -logFile
 Logs/AssetImportWorker3.log
 -srvPort
-57432
+58841
 -licensingIpc
 LicenseClient-jota0
 -job-worker-count
@@ -67,12 +67,12 @@ C:/Unity/Final-Motores
     "memorysetup-job-temp-allocator-block-size-background=1048576"
     "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
     "memorysetup-temp-allocator-size-cloud-worker=32768"
-Player connection [5884]  Target information:
+Player connection [22588]  Target information:
 
-Player connection [5884]  * "[IP] 192.168.18.184 [Port] 0 [Flags] 2 [Guid] 3816440137 [EditorId] 3816440137 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LRAR269) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [22588]  * "[IP] 192.168.18.184 [Port] 0 [Flags] 2 [Guid] 2591102979 [EditorId] 2591102979 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-LRAR269) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [5884] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [5884] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [22588] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [22588] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 5
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
@@ -84,7 +84,7 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 5.77 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 3.67 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.3.5f2 (3fa8bc678cb0)
 [Subsystems] Discovering subsystems at path C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/Resources/UnitySubsystems
@@ -100,7 +100,7 @@ Initialize mono
 Mono path[0] = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/Managed'
 Mono path[1] = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56476
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56248
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
@@ -108,14 +108,14 @@ Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS 
 [Licensing::Module] Licensing is not yet initialized.
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.4+4293ba1
-  Session Id:              cfbd02eba5c34861bce83b82bcb86731
-  Correlation Id:          b7f67bffb83f63ce838111f673cd9969
-  External correlation Id: 4509388083157522995
+  Session Id:              7b2085bc0e7841059808cb7ca27fce94
+  Correlation Id:          68dd730cf0ad6b44718771dba40fd458
+  External correlation Id: 3354358783015944161
   Machine Id:              obXOFmPQrb485TETH0UPRErRG/A=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jota0" (connect: 0.00s, validation: 0.00s, handshake: 2.61s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0-notifications" at "2026-07-14T14:35:54.2897634Z"
-[Licensing::Module] Licensing Background thread has ended after 2.62s
-[Licensing::Module] Licensing is initialized (took 1.67s).
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jota0" (connect: 0.00s, validation: 0.00s, handshake: 2.19s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jota0-notifications" at "2026-07-17T10:31:22.8751217Z"
+[Licensing::Module] Licensing Background thread has ended after 2.19s
+[Licensing::Module] Licensing is initialized (took 1.39s).
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] License group:
   Id: 4674131669422-UnityPersXXXX
@@ -123,42 +123,42 @@ Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS 
   Type: Assigned
   Expiration: Unlimited
 Register platform support module: C:/Users/jota0/OneDrive/Documentos/DOCUMENTOS DEL DISCO C/Unity/6000.3.5f2/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 1.683142 seconds.
-- Loaded All Assemblies, in  2.273 seconds
+Registered in 1.394572 seconds.
+- Loaded All Assemblies, in  1.889 seconds
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.514 seconds
-Domain Reload Profiling: 2781ms
-	BeginReloadAssembly (211ms)
+- Finished resetting the current domain, in  0.470 seconds
+Domain Reload Profiling: 2353ms
+	BeginReloadAssembly (183ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (58ms)
-	RebuildNativeTypeToScriptingClass (16ms)
-	initialDomainReloadingComplete (1748ms)
-	LoadAllAssembliesAndSetupDomain (233ms)
-		LoadAssemblies (206ms)
+	RebuildCommonClasses (40ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (1450ms)
+	LoadAllAssembliesAndSetupDomain (198ms)
+		LoadAssemblies (177ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (228ms)
-			TypeCache.Refresh (226ms)
-				TypeCache.ScanAssembly (211ms)
+		AnalyzeDomain (193ms)
+			TypeCache.Refresh (191ms)
+				TypeCache.ScanAssembly (177ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (514ms)
+	FinalizeReload (471ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (458ms)
+		SetupLoadedEditorAssemblies (412ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (65ms)
-			SetLoadedEditorAssemblies (6ms)
-			BeforeProcessingInitializeOnLoad (94ms)
-			ProcessInitializeOnLoadAttributes (187ms)
-			ProcessInitializeOnLoadMethodAttributes (106ms)
+			InitializePlatformSupportModulesInManaged (60ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (89ms)
+			ProcessInitializeOnLoadAttributes (164ms)
+			ProcessInitializeOnLoadMethodAttributes (94ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -171,9 +171,9 @@ Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInter
 Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
 Begin MonoManager ReloadAssembly
 [Licensing::Client] Successfully resolved entitlement details
-- Loaded All Assemblies, in  1.119 seconds
+- Loaded All Assemblies, in  0.999 seconds
 Assembly reference Packages/com.unity.cinemachine/Editor/Samples/ExposeHDRPInternals/HDRP-Editor-ref.asmref has no target assembly definition
-Refreshing native plugins compatible for Editor in 1.26 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.22 ms, found 3 plugins.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
@@ -187,46 +187,142 @@ Package Manager log level set to [2]
 [Package Manager] Cannot connect to Unity Package Manager local server
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.803 seconds
-Domain Reload Profiling: 1908ms
-	BeginReloadAssembly (235ms)
+- Finished resetting the current domain, in  0.856 seconds
+Domain Reload Profiling: 1844ms
+	BeginReloadAssembly (231ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
+		DisableScriptedObjects (8ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (42ms)
-	RebuildCommonClasses (45ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (52ms)
-	LoadAllAssembliesAndSetupDomain (760ms)
-		LoadAssemblies (562ms)
+		CreateAndSetChildDomain (49ms)
+	RebuildCommonClasses (47ms)
+	RebuildNativeTypeToScriptingClass (16ms)
+	initialDomainReloadingComplete (56ms)
+	LoadAllAssembliesAndSetupDomain (637ms)
+		LoadAssemblies (498ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (327ms)
-			TypeCache.Refresh (231ms)
-				TypeCache.ScanAssembly (211ms)
-			BuildScriptInfoCaches (80ms)
+		AnalyzeDomain (263ms)
+			TypeCache.Refresh (187ms)
+				TypeCache.ScanAssembly (173ms)
+			BuildScriptInfoCaches (60ms)
 			ResolveRequiredComponents (11ms)
-	FinalizeReload (804ms)
+	FinalizeReload (857ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (598ms)
+		SetupLoadedEditorAssemblies (651ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (3ms)
 			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (161ms)
-			ProcessInitializeOnLoadAttributes (356ms)
-			ProcessInitializeOnLoadMethodAttributes (63ms)
+			BeforeProcessingInitializeOnLoad (179ms)
+			ProcessInitializeOnLoadAttributes (386ms)
+			ProcessInitializeOnLoadMethodAttributes (68ms)
 			AfterProcessingInitializeOnLoad (11ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
+		AwakeInstancesAfterBackupRestoration (8ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 1.29 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 1.46 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 17 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 6631 unused Assets / (4.4 MB). Loaded Objects now: 7444.
-Memory consumption went from 147.3 MB to 143.0 MB.
-Total: 8.548800 ms (FindLiveObjects: 0.672700 ms CreateObjectMapping: 0.433400 ms MarkObjects: 5.469800 ms  DeleteObjects: 1.972100 ms)
+Unloading 6630 unused Assets / (5.3 MB). Loaded Objects now: 7443.
+Memory consumption went from 147.6 MB to 142.3 MB.
+Total: 9.787000 ms (FindLiveObjects: 0.666300 ms CreateObjectMapping: 0.842000 ms MarkObjects: 5.573000 ms  DeleteObjects: 2.705100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 145479.561568 seconds.
+  path: Assets/Visuals/Zombie/Materials
+  artifactKey: Guid(c0274b5e4546a274a9c1a99eb72e3a45) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Materials using Guid(c0274b5e4546a274a9c1a99eb72e3a45) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '68b831e9fa2a483722b88cc4d37350fd') in 0.0523995 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Visuals/Zombie/Materials/Terrain_MAT.mat
+  artifactKey: Guid(c8a552d8cf3c37e478866b61b6bbd0ac) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Materials/Terrain_MAT.mat using Guid(c8a552d8cf3c37e478866b61b6bbd0ac) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '9018f468db31e3c620b68bb767bc0665') in 0.0704915 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_AlbedoTransparency.png
+  artifactKey: Guid(87891ca4ea490634d8bb21f989fa33f2) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_AlbedoTransparency.png using Guid(87891ca4ea490634d8bb21f989fa33f2) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '0095277dc878dd0a4686445965a39668') in 0.0539441 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_Normal.png
+  artifactKey: Guid(96839bc2db8a2f14eae787640cd00c37) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_Normal.png using Guid(96839bc2db8a2f14eae787640cd00c37) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'c44cd6437e404b3da79183d03d569d5e') in 0.0139161 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Visuals/Zombie/Textures/ZombieBB_Body_Emission_V3 1.png
+  artifactKey: Guid(e889f77d6af89be4a8ae0e6f7a8537a8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures/ZombieBB_Body_Emission_V3 1.png using Guid(e889f77d6af89be4a8ae0e6f7a8537a8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'ae9ee1024217bf5827983d1efc32fcc0') in 0.0132368 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_V5_HDRP_MaskMap.png
+  artifactKey: Guid(12dad9af63f15c94a876cb407450782f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_V5_HDRP_MaskMap.png using Guid(12dad9af63f15c94a876cb407450782f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'b6d35d361963addfa9a4cce6b67210ac') in 0.0147859 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000039 seconds.
+  path: Assets/Visuals/Zombie/Textures
+  artifactKey: Guid(b5d2d8c94d105ab48956a37d9d871b14) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures using Guid(b5d2d8c94d105ab48956a37d9d871b14) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '47dc7a5244a20cfa8797b24a222ea405') in 0.0040554 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Visuals/Zombie/Materials/URP/Terrain_MAT_URP.mat
+  artifactKey: Guid(1b68d783ed4640043a1466ae5ea6f2a6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Materials/URP/Terrain_MAT_URP.mat using Guid(1b68d783ed4640043a1466ae5ea6f2a6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '79f5f2766b3a71f4645de82e55bc7260') in 0.007095 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_AO.png
+  artifactKey: Guid(70cf1c80000184349813d82b091345c7) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Textures/ZombieBB_Clothes_AO.png using Guid(70cf1c80000184349813d82b091345c7) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '2488b07f821d02eb61948a9de2093c0d') in 0.0110659 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Visuals/Zombie/Materials/HDRP/ZombieBB_Clothes_HDRP.mat
+  artifactKey: Guid(9be79741e91c3ed40a8175023e801f25) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Materials/HDRP/ZombieBB_Clothes_HDRP.mat using Guid(9be79741e91c3ed40a8175023e801f25) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'f28b39bce71f3d383ccfaf3466522cf7') in 0.0141077 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.864329 seconds.
+  path: Assets/Visuals/Zombie/Animations/Zombie Idle.fbx
+  artifactKey: Guid(31fbae49c9f527e47bbff8608016a6b8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Zombie/Animations/Zombie Idle.fbx using Guid(31fbae49c9f527e47bbff8608016a6b8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '6efe0c3032de9b6ec2335783daf3ca42') in 0.1742575 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 203
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.302006 seconds.
+  path: Assets/Visuals/Dungeon/Effects/Torch Light.prefab
+  artifactKey: Guid(1aabf439394b1014184dbfde545c9d59) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Visuals/Dungeon/Effects/Torch Light.prefab using Guid(1aabf439394b1014184dbfde545c9d59) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '27b16f3e982295b5ea76e750f383525b') in 0.0351995 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 6
 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 AssetImportWorker is now disconnected from the server
