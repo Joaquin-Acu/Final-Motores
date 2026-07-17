@@ -21,7 +21,6 @@ namespace DungeonEscape
         private void Start()
         {
             gameObject.layer = LayerMask.NameToLayer("Interactable");
-            if (gameObject.layer == -1) gameObject.layer = 0;
 
             if (doorMeshTransform == null)
             {

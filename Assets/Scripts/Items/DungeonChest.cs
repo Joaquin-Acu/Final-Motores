@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace DungeonEscape
@@ -11,11 +10,6 @@ namespace DungeonEscape
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private float keyPopForce = 4f;
 
-        [Header("Animation Settings")]
-        [SerializeField] private Transform chestLid; // Tapa del cofre a rotar
-        [SerializeField] private float openAngle = -80f;
-        [SerializeField] private float openSpeed = 2f;
-
         private bool isOpen = false;
 
         private void Start()
@@ -26,10 +20,6 @@ namespace DungeonEscape
             {
                 // El cofre debe ser un objeto físico para bloquear el paso, pero tener una capa interactuable
                 gameObject.layer = LayerMask.NameToLayer("Interactable");
-                if (gameObject.layer == -1)
-                {
-                    gameObject.layer = 0; // Fallback a Default si no existe la capa
-                }
             }
         }
 
@@ -38,35 +28,12 @@ namespace DungeonEscape
             if (isOpen) return;
 
             isOpen = true;
-            StartCoroutine(OpenChestCoroutine());
+            SpawnKey();
         }
 
         public string GetInteractionPrompt()
         {
             return isOpen ? string.Empty : "Presiona E para abrir el cofre";
-        }
-
-        private IEnumerator OpenChestCoroutine()
-        {
-            // Rotar la tapa gradualmente
-            if (chestLid != null)
-            {
-                Quaternion startRotation = chestLid.localRotation;
-                Quaternion targetRotation = Quaternion.Euler(openAngle, 0f, 0f);
-                float elapsed = 0f;
-
-                while (elapsed < 1f)
-                {
-                    elapsed += Time.deltaTime * openSpeed;
-                    chestLid.localRotation = Quaternion.Slerp(startRotation, targetRotation, elapsed);
-                    yield return null;
-                }
-                chestLid.localRotation = targetRotation;
-            }
-
-            // Esperar un instante y hacer aparecer la llave (Zelda style!)
-            yield return new WaitForSeconds(0.2f);
-            SpawnKey();
         }
 
         private void SpawnKey()

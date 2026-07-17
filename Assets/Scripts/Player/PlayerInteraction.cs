@@ -21,10 +21,24 @@ namespace DungeonEscape
             {
                 interactAction = playerInput.actions.FindAction("Interact");
             }
-            else
+
+            // Auto-asignar cámara si está vacía en el Inspector
+            if (cameraTransform == null)
             {
-                Debug.LogWarning("No se encontró PlayerInput en PlayerInteraction.");
+                cameraTransform = GetComponentInChildren<Camera>()?.transform;
+                if (cameraTransform == null)
+                {
+                    cameraTransform = Camera.main?.transform;
+                }
             }
+
+            // Forzar que la máscara contenga las capas Interactable y Default para evitar fallos de configuración
+            int interactableLayer = LayerMask.NameToLayer("Interactable");
+            if (interactableLayer != -1)
+            {
+                interactableMask |= (1 << interactableLayer);
+            }
+            interactableMask |= (1 << LayerMask.NameToLayer("Default"));
         }
 
         private void Update()
@@ -45,9 +59,12 @@ namespace DungeonEscape
             Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
             RaycastHit hit;
 
+            // Dibujar una línea verde en la ventana Scene de Unity que muestra la mirada del jugador
+            Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green);
+
             if (Physics.Raycast(ray, out hit, interactionDistance, interactableMask))
             {
-                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
                 
                 if (interactable != null)
                 {

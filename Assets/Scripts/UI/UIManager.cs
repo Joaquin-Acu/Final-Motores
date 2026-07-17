@@ -70,58 +70,46 @@ namespace DungeonEscape
 
         private void SetupButtonListeners()
         {
-            // Vincular botones a las funciones del GameManager con logs de diagnóstico y seguridad null
+            // Vincular botones a las funciones del GameManager con seguridad null
             if (resumeButton != null)
             {
                 resumeButton.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Reanudar presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.TogglePause();
-                    else Debug.LogError("UIManager: No se pudo reanudar porque GameManager.Instance es NULL.");
                 });
             }
                 
             if (restartButtonLose != null)
             {
                 restartButtonLose.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Reiniciar (Derrota) presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.RestartLevel();
-                    else Debug.LogError("UIManager: No se pudo reiniciar porque GameManager.Instance es NULL.");
                 });
             }
                 
             if (restartButtonWin != null)
             {
                 restartButtonWin.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Reiniciar (Victoria) presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.RestartLevel();
-                    else Debug.LogError("UIManager: No se pudo reiniciar porque GameManager.Instance es NULL.");
                 });
             }
 
             if (menuButtonLose != null)
             {
                 menuButtonLose.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Menú (Derrota) presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.LoadSceneByName("MainMenu");
-                    else Debug.LogError("UIManager: No se pudo volver al menú porque GameManager.Instance es NULL.");
                 });
             }
 
             if (menuButtonWin != null)
             {
                 menuButtonWin.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Menú (Victoria) presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.LoadSceneByName("MainMenu");
-                    else Debug.LogError("UIManager: No se pudo volver al menú porque GameManager.Instance es NULL.");
                 });
             }
 
             if (menuButtonPause != null)
             {
                 menuButtonPause.onClick.AddListener(() => {
-                    Debug.Log("UIManager: Botón Menú (Pausa) presionado.");
                     if (GameManager.Instance != null) GameManager.Instance.LoadSceneByName("MainMenu");
-                    else Debug.LogError("UIManager: No se pudo volver al menú porque GameManager.Instance es NULL.");
                 });
             }
         }

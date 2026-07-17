@@ -111,6 +111,8 @@ namespace DungeonEscape
 
         private void PatrolBehavior()
         {
+            if (!agent.isOnNavMesh) return;
+
             agent.speed = walkSpeed;
 
             // Si detecta al jugador, cambiar a perseguir
@@ -129,6 +131,8 @@ namespace DungeonEscape
 
         private void SetNextPatrolPoint()
         {
+            if (!agent.isOnNavMesh) return;
+
             if (patrolWaypoints != null && patrolWaypoints.Length > 0)
             {
                 agent.destination = patrolWaypoints[currentWaypointIndex].position;
@@ -149,6 +153,8 @@ namespace DungeonEscape
 
         private void ChaseBehavior()
         {
+            if (!agent.isOnNavMesh) return;
+
             agent.speed = chaseSpeed;
             agent.destination = playerTransform.position;
 
@@ -171,6 +177,8 @@ namespace DungeonEscape
 
         private void AttackBehavior()
         {
+            if (!agent.isOnNavMesh) return;
+
             agent.speed = 0f; // Detenerse mientras ataca
             agent.destination = transform.position;
 
@@ -222,11 +230,6 @@ namespace DungeonEscape
                 if (distanceToPlayer <= attackRange + 0.5f)
                 {
                     playerHealth.TakeDamage(attackDamage);
-                    Debug.Log($"¡Enemigo conectó el golpe e infligió {attackDamage} de daño!");
-                }
-                else
-                {
-                    Debug.Log("¡El jugador esquivó el ataque del enemigo!");
                 }
             }
         }
