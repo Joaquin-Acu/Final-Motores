@@ -42,7 +42,7 @@ namespace DungeonEscape
             }
             else
             {
-                Debug.Log($"Llaves insuficientes. Requeridas: {keysRequired}");
+                // Sin mensaje de consola
             }
         }
 
