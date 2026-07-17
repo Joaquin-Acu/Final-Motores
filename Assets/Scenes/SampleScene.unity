@@ -6742,6 +6742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood Door
       objectReference: {fileID: 0}
+    - target: {fileID: 1860911371651196942, guid: 72f4f682d6cc8e64f8bfe8bdd41f42bc, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20482,6 +20486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 3025152557069088982, guid: 98aa266d26f481d44a58becafbfae6bb, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20645,6 +20653,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.PlayerController
   moveSpeed: 5
   sprintMultiplier: 1.5
+  footstepClips: []
+  stepIntervalWalk: 0.5
+  stepIntervalSprint: 0.35
+  footstepAudioSource: {fileID: 0}
+  sfxGroup: {fileID: 0}
 --- !u!136 &1262870309
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25096,9 +25109,6 @@ MonoBehaviour:
   keyPrefabToSpawn: {fileID: 0}
   spawnPoint: {fileID: 0}
   keyPopForce: 4
-  chestLid: {fileID: 0}
-  openAngle: -80
-  openSpeed: 2
 --- !u!65 &1559760759
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30280,6 +30290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wood Door (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1860911371651196942, guid: 72f4f682d6cc8e64f8bfe8bdd41f42bc, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31019,6 +31033,10 @@ MonoBehaviour:
   attackCooldown: 1.5
   attackDamageDelay: 0.5
   animator: {fileID: 0}
+  enemyAudioSource: {fileID: 0}
+  sfxGroup: {fileID: 0}
+  chaseGrowlSfx: {fileID: 0}
+  attackSfx: {fileID: 0}
 --- !u!195 &2007587705
 NavMeshAgent:
   m_ObjectHideFlags: 0
