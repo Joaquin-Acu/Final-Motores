@@ -12,8 +12,9 @@ namespace DungeonEscape
         [SerializeField] private AudioMixerGroup sfxMixerGroup;
 
         [Header("Clips - BGM")]
-        [SerializeField] private AudioClip defaultMusic;
+        [SerializeField] private AudioClip menuMusic;
         [SerializeField] private AudioClip victoryMusic;
+        [SerializeField] private AudioClip gameOverMusic;
 
         [Header("Clips - SFX")]
         [SerializeField] private AudioClip doorOpenSfx;
@@ -75,15 +76,15 @@ namespace DungeonEscape
             switch (state)
             {
                 case GameState.MainMenu:
-                    StopBGM();
+                    PlayBGM(menuMusic);
                     break;
                 case GameState.Playing:
-                    PlayBGM(defaultMusic);
+                    StopBGM(); // Sin música en gameplay para destacar los efectos sonoros
                     break;
                 case GameState.Paused:
                     break;
                 case GameState.GameOver:
-                    StopBGM();
+                    PlayBGM(gameOverMusic);
                     break;
                 case GameState.Victory:
                     PlayBGM(victoryMusic);

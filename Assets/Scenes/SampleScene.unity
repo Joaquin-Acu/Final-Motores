@@ -1251,63 +1251,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
---- !u!1001 &88212060
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 690609800}
-    m_Modifications:
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 34.76345
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.93415
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.6002903
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.97907865
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.20147726
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.017799642
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.022250412
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -23.286
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -1.615
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -2.271
-      objectReference: {fileID: 0}
-    - target: {fileID: 913107861429549591, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_Name
-      value: Torch (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
 --- !u!1 &90072058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,63 +3271,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3017930518958732274, guid: 8ea4a18264ff0654fa1bb4a337b8dc92, type: 3}
   m_PrefabInstance: {fileID: 1079307218}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &254180377
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 690609800}
-    m_Modifications:
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 42.29245
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.80815
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -32.20929
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.973799
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.22433874
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.015544556
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0338539
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 25.841
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 2.896
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 4.647
-      objectReference: {fileID: 0}
-    - target: {fileID: 913107861429549591, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_Name
-      value: Torch (9)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
 --- !u!4 &255262231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516630517374711742, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
@@ -3799,11 +3685,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
---- !u!4 &298721860 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-  m_PrefabInstance: {fileID: 88212060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &304047845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516630517374711742, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
@@ -6492,6 +6373,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452868211}
   m_Mesh: {fileID: -629719859055844128, guid: 4224dfcf39b9ca848800011919f8cef9, type: 3}
+--- !u!1 &468231413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 468231414}
+  - component: {fileID: 468231416}
+  - component: {fileID: 468231415}
+  m_Layer: 0
+  m_Name: Audio_Trigger3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &468231414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468231413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.61, y: 0, z: -6.731}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2116046030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &468231415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468231413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf95dcea8345a8438c30d90d9d35983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.AmbientSoundTrigger
+  whisperClip: {fileID: 8300000, guid: 518aa3ad93203e4418136011b40c04af, type: 3}
+  playIn3D: 0
+--- !u!65 &468231416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468231413}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5856255, z: 3.7429066}
+  m_Center: {x: 0, y: 0.20718724, z: -3.6702604}
 --- !u!4 &472570907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4528581459097077864, guid: ed70a4e58bdf8f34a937ad2afe15df28, type: 3}
@@ -6508,6 +6457,7 @@ GameObject:
   - component: {fileID: 477100072}
   - component: {fileID: 477100071}
   - component: {fileID: 477100070}
+  - component: {fileID: 477100073}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6556,6 +6506,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &477100073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477100068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607fdfa093d40364f87f7e223fd18a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.AudioManager
+  musicMixerGroup: {fileID: -8842543366521015252, guid: cc20d24ecddb4074b85cced6b206dc26, type: 2}
+  sfxMixerGroup: {fileID: -8277104172810191986, guid: cc20d24ecddb4074b85cced6b206dc26, type: 2}
+  defaultMusic: {fileID: 0}
+  victoryMusic: {fileID: 0}
+  doorOpenSfx: {fileID: 8300000, guid: 37c96df6f0dec5e4d94b02f513fa7d71, type: 3}
+  chestOpenSfx: {fileID: 8300000, guid: c00cb15a7d2c114408153156528cc697, type: 3}
 --- !u!4 &480932341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5516630517374711742, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
@@ -7337,63 +7305,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532837364}
   m_Mesh: {fileID: -629719859055844128, guid: 4224dfcf39b9ca848800011919f8cef9, type: 3}
---- !u!1001 &535853946
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 690609800}
-    m_Modifications:
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 45.909798
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.175659
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -11.854842
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9659259
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.258819
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 913107861429549591, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-      propertyPath: m_Name
-      value: Torch (8)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
 --- !u!1 &536388842
 GameObject:
   m_ObjectHideFlags: 0
@@ -9662,11 +9573,8 @@ Transform:
   - {fileID: 104484086}
   - {fileID: 952649712}
   - {fileID: 594315487}
-  - {fileID: 1559670350}
   - {fileID: 801294164}
-  - {fileID: 298721860}
   - {fileID: 1359672312}
-  - {fileID: 2079658142}
   - {fileID: 114755009}
   - {fileID: 1057154546}
   m_Father: {fileID: 1182688947}
@@ -13260,15 +13168,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.77845
+      value: 30.654
       objectReference: {fileID: 0}
     - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.98415
+      value: 4.194
       objectReference: {fileID: 0}
     - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.19429
+      value: -32.238
       objectReference: {fileID: 0}
     - target: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15644,6 +15552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 7987993409650247855, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
+      propertyPath: hitSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 11d947b23627f99489a47bf6abec5e8d, type: 3}
     - target: {fileID: 7987993409650247855, guid: ef26b2dc882f2d741b1e5521ca67f8ef, type: 3}
       propertyPath: attackDamageDelay
       value: 1
@@ -20653,11 +20565,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.PlayerController
   moveSpeed: 5
   sprintMultiplier: 1.5
-  footstepClips: []
-  stepIntervalWalk: 0.5
-  stepIntervalSprint: 0.35
+  footstepClips:
+  - {fileID: 8300000, guid: fb09878f36e0d2b4393e8ff9c07cf450, type: 3}
   footstepAudioSource: {fileID: 0}
-  sfxGroup: {fileID: 0}
+  sfxGroup: {fileID: -8277104172810191986, guid: cc20d24ecddb4074b85cced6b206dc26, type: 2}
 --- !u!136 &1262870309
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -25084,11 +24995,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557486318}
   m_Mesh: {fileID: -629719859055844128, guid: 4224dfcf39b9ca848800011919f8cef9, type: 3}
---- !u!4 &1559670350 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-  m_PrefabInstance: {fileID: 254180377}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1559760757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3025152557069088982, guid: 98aa266d26f481d44a58becafbfae6bb, type: 3}
@@ -25140,6 +25046,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5516630517374711742, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
   m_PrefabInstance: {fileID: 1382545248}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1572470329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1572470330}
+  - component: {fileID: 1572470332}
+  - component: {fileID: 1572470331}
+  m_Layer: 0
+  m_Name: Audio_Trigger2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1572470330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572470329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.98, y: 0, z: 17.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2116046030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1572470331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572470329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf95dcea8345a8438c30d90d9d35983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.AmbientSoundTrigger
+  whisperClip: {fileID: 8300000, guid: 9ecd69c6cadbd434087c6f817233738d, type: 3}
+  playIn3D: 0
+--- !u!65 &1572470332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572470329}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5856255, z: 3.7879276}
+  m_Center: {x: 0, y: 0.20718724, z: -3.6063051}
 --- !u!1 &1583680573
 GameObject:
   m_ObjectHideFlags: 0
@@ -26491,6 +26465,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702733737}
   m_Mesh: {fileID: -629719859055844128, guid: 4224dfcf39b9ca848800011919f8cef9, type: 3}
+--- !u!1 &1703067483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703067484}
+  - component: {fileID: 1703067486}
+  - component: {fileID: 1703067485}
+  m_Layer: 0
+  m_Name: Audio_Trigger1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703067484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703067483}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.866, y: 0, z: 5.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2116046030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703067485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703067483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf95dcea8345a8438c30d90d9d35983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonEscape.AmbientSoundTrigger
+  whisperClip: {fileID: 8300000, guid: ddb9c8961ebbba84caee6199b37b0ad6, type: 3}
+  playIn3D: 0
+--- !u!65 &1703067486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703067483}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.5856255, z: 8.887258}
+  m_Center: {x: 0, y: 0.20718724, z: -2.191566}
 --- !u!1001 &1708041179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31025,6 +31067,8 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
+  hearingRadius: 6
+  investigationDuration: 3
   patrolWaypoints: []
   waypointTolerance: 0.5
   randomPatrolRadius: 10
@@ -31035,8 +31079,9 @@ MonoBehaviour:
   animator: {fileID: 0}
   enemyAudioSource: {fileID: 0}
   sfxGroup: {fileID: 0}
-  chaseGrowlSfx: {fileID: 0}
-  attackSfx: {fileID: 0}
+  growlSfx: {fileID: 0}
+  hitSfx: {fileID: 0}
+  growlCooldown: 3
 --- !u!195 &2007587705
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -32590,11 +32635,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49242fe9374586a4f81ba42923107e1d, type: 3}
---- !u!4 &2079658142 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 569655254227853485, guid: 1a96656b96d5a37498f73aa6b26f821b, type: 3}
-  m_PrefabInstance: {fileID: 535853946}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2081280412
 GameObject:
   m_ObjectHideFlags: 0
@@ -33055,6 +33095,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115480088}
   m_Mesh: {fileID: -629719859055844128, guid: 4224dfcf39b9ca848800011919f8cef9, type: 3}
+--- !u!1 &2116046029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116046030}
+  m_Layer: 0
+  m_Name: Audio_TriggerContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116046030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116046029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.24533, y: 0.08941, z: -23.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1703067484}
+  - {fileID: 1572470330}
+  - {fileID: 468231414}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2118408478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33239,3 +33313,4 @@ SceneRoots:
   - {fileID: 1019081815}
   - {fileID: 731165016}
   - {fileID: 1350837188}
+  - {fileID: 2116046030}
