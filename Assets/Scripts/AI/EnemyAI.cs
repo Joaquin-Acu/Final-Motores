@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 namespace DungeonEscape
 {
@@ -35,6 +36,11 @@ namespace DungeonEscape
         [Header("Animations")]
         [SerializeField] private Animator animator;
 
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource enemyAudioSource; // AudioSource local en el enemigo (3D)
+        [SerializeField] private AudioMixerGroup sfxGroup; // Enrutar al canal de SFX
+        [SerializeField] private AudioClip growlSfx; // Sonido de gruñido del zombie (wav)
+
         private NavMeshAgent agent;
         private Transform playerTransform;
         private PlayerHealth playerHealth;
@@ -47,6 +53,22 @@ namespace DungeonEscape
         {
             agent = GetComponent<NavMeshAgent>();
             agent.speed = walkSpeed;
+
+            // Inicializar AudioSource del enemigo si no está asignado
+            if (enemyAudioSource == null)
+            {
+                enemyAudioSource = gameObject.AddComponent<AudioSource>();
+                enemyAudioSource.playOnAwake = false;
+                enemyAudioSource.loop = false;
+                enemyAudioSource.spatialBlend = 1.0f; // Audio 3D (para escuchar la posición física del zombie)
+                enemyAudioSource.minDistance = 2f;
+                enemyAudioSource.maxDistance = 15f;
+            }
+
+            if (sfxGroup != null)
+            {
+                enemyAudioSource.outputAudioMixerGroup = sfxGroup;
+            }
         }
 
         private void Start()
@@ -109,6 +131,28 @@ namespace DungeonEscape
             isPlayerVisible = false;
         }
 
+        private void SetState(EnemyState newState)
+        {
+            if (currentState == newState) return;
+
+            EnemyState oldState = currentState;
+            currentState = newState;
+
+            // Si pasa a perseguir, reproducir el rugido del zombie
+            if (newState == EnemyState.Chasing && oldState == EnemyState.Patrolling)
+            {
+                PlayChaseGrowl();
+            }
+        }
+
+        private void PlayChaseGrowl()
+        {
+            if (enemyAudioSource != null && growlSfx != null)
+            {
+                enemyAudioSource.PlayOneShot(growlSfx);
+            }
+        }
+
         private void PatrolBehavior()
         {
             if (!agent.isOnNavMesh) return;
@@ -118,7 +162,7 @@ namespace DungeonEscape
             // Si detecta al jugador, cambiar a perseguir
             if (isPlayerVisible)
             {
-                currentState = EnemyState.Chasing;
+                SetState(EnemyState.Chasing);
                 return;
             }
 
@@ -163,14 +207,14 @@ namespace DungeonEscape
             // Si se acerca a rango de ataque
             if (distanceToPlayer <= attackRange)
             {
-                currentState = EnemyState.Attacking;
+                SetState(EnemyState.Attacking);
                 return;
             }
 
             // Si pierde de vista al jugador a cierta distancia, vuelve a patrullar
             if (!isPlayerVisible && distanceToPlayer > detectionRadius)
             {
-                currentState = EnemyState.Patrolling;
+                SetState(EnemyState.Patrolling);
                 SetNextPatrolPoint();
             }
         }
@@ -195,7 +239,7 @@ namespace DungeonEscape
             // Si el jugador se aleja
             if (distanceToPlayer > attackRange)
             {
-                currentState = EnemyState.Chasing;
+                SetState(EnemyState.Chasing);
                 return;
             }
 
@@ -213,6 +257,11 @@ namespace DungeonEscape
             if (animator != null)
             {
                 animator.SetTrigger("Attack");
+            }
+
+            if (enemyAudioSource != null && growlSfx != null)
+            {
+                enemyAudioSource.PlayOneShot(growlSfx);
             }
 
             StartCoroutine(DamageDelayCoroutine());

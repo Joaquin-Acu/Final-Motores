@@ -25,6 +25,7 @@ namespace DungeonEscape
         public static Action<int> OnKeyCollected;       // Envía la cantidad recolectada en un objeto
         public static Action<int> OnKeyCountChanged;    // Envía la cantidad total acumulada de llaves del jugador
         public static Action OnDoorUnlocked;
+        public static Action OnChestOpened;
         public static Action<int, int> OnKeysRequiredUpdate; // Envía (llaves poseídas, llaves requeridas)
 
         // Eventos de UI / Interacción

@@ -28,6 +28,7 @@ namespace DungeonEscape
             if (isOpen) return;
 
             isOpen = true;
+            DungeonEvents.OnChestOpened?.Invoke();
             SpawnKey();
         }
 
