@@ -29,14 +29,12 @@ namespace DungeonEscape
 
         private void TriggerVictory()
         {
-            Debug.Log("¡El jugador ha cruzado el portal de escape!");
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.WinGame();
             }
             else
             {
-                // Fallback si no hay GameManager
                 DungeonEvents.OnGameStateChanged?.Invoke(GameState.Victory);
             }
         }

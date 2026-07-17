@@ -14,17 +14,9 @@ namespace DungeonEscape
 
         private void Start()
         {
-            if (playButton != null)
-            {
-                playButton.onClick.AddListener(StartGame);
-            }
+            if (playButton != null) playButton.onClick.AddListener(StartGame);
+            if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
 
-            if (quitButton != null)
-            {
-                quitButton.onClick.AddListener(QuitGame);
-            }
-
-            // Liberar cursor al estar en el menú principal
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -37,7 +29,6 @@ namespace DungeonEscape
             }
             else
             {
-                // Fallback si no está el GameManager en la escena del menú
                 UnityEngine.SceneManagement.SceneManager.LoadScene(gameplaySceneName);
             }
         }
@@ -50,7 +41,6 @@ namespace DungeonEscape
             }
             else
             {
-                Debug.Log("Saliendo del juego...");
                 Application.Quit();
             }
         }

@@ -39,7 +39,6 @@ namespace DungeonEscape
 
         private void Start()
         {
-            // Determinar estado inicial por la escena cargada
             string currentSceneName = SceneManager.GetActiveScene().name;
             if (currentSceneName.Contains("Menu"))
             {
@@ -47,7 +46,6 @@ namespace DungeonEscape
             }
             else
             {
-                // Si arranca directo en un nivel de juego
                 ChangeState(GameState.Playing);
             }
         }
@@ -62,32 +60,26 @@ namespace DungeonEscape
                     Time.timeScale = 1f;
                     collectedKeys = 0;
                     break;
-                    
                 case GameState.Playing:
                     Time.timeScale = 1f;
                     break;
-                    
                 case GameState.Paused:
                     Time.timeScale = 0f;
                     break;
-                    
                 case GameState.GameOver:
                     Time.timeScale = 0f;
                     break;
-                    
                 case GameState.Victory:
                     Time.timeScale = 0f;
                     break;
             }
 
-            // Notificar a todos los sistemas (UI, MouseLook, etc.) del cambio de estado
             DungeonEvents.OnGameStateChanged?.Invoke(currentState);
         }
 
         private void AddKeys(int amount)
         {
             collectedKeys += amount;
-            Debug.Log($"Llave recolectada. Llaves totales: {collectedKeys}");
             DungeonEvents.OnKeyCountChanged?.Invoke(collectedKeys);
         }
 
@@ -141,7 +133,6 @@ namespace DungeonEscape
 
         public void QuitGame()
         {
-            Debug.Log("Saliendo del juego...");
             Application.Quit();
         }
     }
