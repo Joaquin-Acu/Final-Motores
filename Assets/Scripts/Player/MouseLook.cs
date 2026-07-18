@@ -36,17 +36,17 @@ namespace DungeonEscape
                 Debug.LogWarning("No se encontró PlayerInput en MouseLook.");
             }
 
-            // Inicializar la rotación vertical inicial
+            
             xRotation = playerCamera.localEulerAngles.x;
-            if (xRotation > 180f) xRotation -= 360f; // Ajustar a rango -180 a 180
+            if (xRotation > 180f) xRotation -= 360f; //Ajustar a rango -180 a 180
 
-            // Inicializar yRotation con la rotación horizontal inicial del cuerpo del jugador
+            
             yRotation = transform.localEulerAngles.y;
 
-            // Bloquear el cursor al iniciar
+            //Bloquear el cursor al iniciar
             SetCursorLock(true);
             
-            // Suscribirse al evento de cambio de estado de juego para liberar el cursor
+            //Suscribirse al evento de cambio de estado de juego para liberar el cursor
             DungeonEvents.OnGameStateChanged += HandleGameStateChanged;
         }
 
@@ -57,7 +57,7 @@ namespace DungeonEscape
 
         private void Update()
         {
-            // Procesar la entrada en Update para una vista instantánea y sin retardo
+            
             if (isCursorLocked && lookAction != null)
             {
                 Vector2 lookInput = lookAction.ReadValue<Vector2>();
@@ -70,7 +70,7 @@ namespace DungeonEscape
                 
                 yRotation += mouseX;
 
-                // Rotar la cámara en Update (eje X vertical) para evitar retrasos visuales
+                
                 playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             }
         }
@@ -79,9 +79,7 @@ namespace DungeonEscape
         {
             if (isCursorLocked && rb != null)
             {
-                // Aplicar la rotación del cuerpo (eje Y horizontal) en FixedUpdate usando MoveRotation.
-                // Al hacerlo aquí, se sincroniza perfectamente con el motor de físicas de Unity 
-                // y se beneficia del "Rigidbody Interpolation", eliminando por completo los tirones.
+                
                 rb.MoveRotation(Quaternion.Euler(0f, yRotation, 0f));
             }
         }

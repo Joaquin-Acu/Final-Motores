@@ -30,7 +30,7 @@ namespace DungeonEscape
 
         private void OnEnable()
         {
-            // Suscribirse a eventos globales
+            //Suscribirse a eventos globales
             DungeonEvents.OnGameStateChanged += HandleGameStateChanged;
             DungeonEvents.OnPlayerMaxHealthInit += HandleMaxHealthInit;
             DungeonEvents.OnPlayerDamage += UpdateHealthUI;
@@ -41,7 +41,7 @@ namespace DungeonEscape
 
         private void OnDisable()
         {
-            // Desuscribirse
+            //Desuscribirse
             DungeonEvents.OnGameStateChanged -= HandleGameStateChanged;
             DungeonEvents.OnPlayerMaxHealthInit -= HandleMaxHealthInit;
             DungeonEvents.OnPlayerDamage -= UpdateHealthUI;
@@ -54,13 +54,11 @@ namespace DungeonEscape
         {
             SetupButtonListeners();
             
-            // Ocultar texto de interacción al iniciar
             if (interactPromptText != null)
             {
                 interactPromptText.gameObject.SetActive(false);
             }
 
-            // Inicializar el contador de llaves en el HUD de forma segura
             if (keyCountText != null)
             {
                 int keys = (GameManager.Instance != null) ? GameManager.Instance.CollectedKeys : 0;
@@ -70,7 +68,6 @@ namespace DungeonEscape
 
         private void SetupButtonListeners()
         {
-            // Vincular botones a las funciones del GameManager con seguridad null
             if (resumeButton != null)
             {
                 resumeButton.onClick.AddListener(() => {
@@ -116,23 +113,21 @@ namespace DungeonEscape
 
         private void HandleGameStateChanged(GameState state)
         {
-            // Desactivar todos los paneles primero
+            //Desactivar todos los paneles primero
             if (hudPanel != null) hudPanel.SetActive(false);
             if (pausePanel != null) pausePanel.SetActive(false);
             if (gameOverPanel != null) gameOverPanel.SetActive(false);
             if (victoryPanel != null) victoryPanel.SetActive(false);
 
-            // Activar el panel según el estado
             switch (state)
             {
                 case GameState.MainMenu:
-                    // En el menú principal generalmente se maneja otra escena con su propio UIManager
                     break;
                 case GameState.Playing:
                     if (hudPanel != null) hudPanel.SetActive(true);
                     break;
                 case GameState.Paused:
-                    if (hudPanel != null) hudPanel.SetActive(true); // Dejar HUD visible detrás
+                    if (hudPanel != null) hudPanel.SetActive(true); //Dejar HUD visible detrás
                     if (pausePanel != null) pausePanel.SetActive(true);
                     break;
                 case GameState.GameOver:

@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Assets",
+    "\\Assets\\Scripts",
+    "\\Assets\\Scripts\\Events",
+    "\\Assets\\Scripts\\Interfaces",
+    "\\Assets\\Scripts\\Items",
+    "\\Assets\\Scripts\\Player",
+    "\\Assets\\Scripts\\UI"
+  ],
+  "SelectedNode": "\\Assets\\Scripts\\Events\\DungeonEvents.cs",
+  "PreviewInSolutionExplorer": false
+}

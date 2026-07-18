@@ -40,10 +40,6 @@ namespace DungeonEscape
             {
                 OpenDoor();
             }
-            else
-            {
-                // Sin mensaje de consola
-            }
         }
 
         public string GetInteractionPrompt()
@@ -57,7 +53,7 @@ namespace DungeonEscape
             isOpen = true;
             DungeonEvents.OnDoorUnlocked?.Invoke();
 
-            // Desactivar obstáculo NavMesh al abrir
+            //Desactivar obstáculo NavMesh al abrir
             NavMeshObstacle obstacle = GetComponent<NavMeshObstacle>();
             if (obstacle != null)
             {

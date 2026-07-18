@@ -22,7 +22,6 @@ namespace DungeonEscape
                 interactAction = playerInput.actions.FindAction("Interact");
             }
 
-            // Auto-asignar cámara si está vacía en el Inspector
             if (cameraTransform == null)
             {
                 cameraTransform = GetComponentInChildren<Camera>()?.transform;
@@ -32,7 +31,6 @@ namespace DungeonEscape
                 }
             }
 
-            // Forzar que la máscara contenga las capas Interactable y Default para evitar fallos de configuración
             int interactableLayer = LayerMask.NameToLayer("Interactable");
             if (interactableLayer != -1)
             {
@@ -45,7 +43,7 @@ namespace DungeonEscape
         {
             CheckForInteractable();
             
-            // Detectar si se presiona la tecla de interactuar
+            //Detectar si se presiona la tecla de interactuar
             if (interactAction != null && interactAction.WasPressedThisFrame())
             {
                 TriggerInteraction();
@@ -59,7 +57,6 @@ namespace DungeonEscape
             Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
             RaycastHit hit;
 
-            // Dibujar una línea verde en la ventana Scene de Unity que muestra la mirada del jugador
             Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.green);
 
             if (Physics.Raycast(ray, out hit, interactionDistance, interactableMask))
@@ -68,7 +65,6 @@ namespace DungeonEscape
                 
                 if (interactable != null)
                 {
-                    // Si encontramos un interactuable nuevo o diferente
                     if (interactable != currentInteractable)
                     {
                         currentInteractable = interactable;
@@ -78,7 +74,6 @@ namespace DungeonEscape
                 }
             }
 
-            // Si el Raycast no golpea nada o golpea algo no interactuable
             if (currentInteractable != null)
             {
                 currentInteractable = null;
@@ -92,7 +87,6 @@ namespace DungeonEscape
             {
                 currentInteractable.Interact();
                 
-                // Forzar actualización inmediata tras interactuar por si el estado cambia
                 CheckForInteractable();
             }
         }
